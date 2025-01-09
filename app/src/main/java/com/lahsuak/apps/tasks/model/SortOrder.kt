@@ -1,7 +1,7 @@
-package com.lahsuak.apps.tasks.model
+package com.jaixlabs.checksy.model
 
-import com.lahsuak.apps.tasks.R
-import com.lahsuak.apps.tasks.ui.MainActivity.Companion.activityContext
+import com.jaixlabs.checksy.R
+import com.jaixlabs.checksy.ui.MainActivity.Companion.activityContext
 
 enum class SortOrder(val type: String) {
     BY_NAME(activityContext!!.getString(R.string.name)),

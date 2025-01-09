@@ -1,4 +1,4 @@
-package com.lahsuak.apps.tasks
+package com.jaixlabs.checksy
 
 import org.junit.Test
 

@@ -1,10 +1,10 @@
-package com.lahsuak.apps.tasks.ui.navigation
+package com.jaixlabs.checksy.ui.navigation
 
-import com.lahsuak.apps.tasks.util.NavigationConstants.Screen.NOTIFICATION
-import com.lahsuak.apps.tasks.util.NavigationConstants.Screen.OVERVIEW
-import com.lahsuak.apps.tasks.util.NavigationConstants.Screen.SETTING
-import com.lahsuak.apps.tasks.util.NavigationConstants.Screen.SUBTASK
-import com.lahsuak.apps.tasks.util.NavigationConstants.Screen.TASK
+import com.jaixlabs.checksy.util.NavigationConstants.Screen.NOTIFICATION
+import com.jaixlabs.checksy.util.NavigationConstants.Screen.OVERVIEW
+import com.jaixlabs.checksy.util.NavigationConstants.Screen.SETTING
+import com.jaixlabs.checksy.util.NavigationConstants.Screen.SUBTASK
+import com.jaixlabs.checksy.util.NavigationConstants.Screen.TASK
 
 sealed class NavigationItem(val route: String) {
     object Task : NavigationItem(TASK)

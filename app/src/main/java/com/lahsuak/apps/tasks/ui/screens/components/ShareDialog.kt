@@ -1,4 +1,4 @@
-package com.lahsuak.apps.tasks.ui.screens.components
+package com.jaixlabs.checksy.ui.screens.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -43,8 +43,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
-import com.lahsuak.apps.tasks.R
-import com.lahsuak.apps.tasks.data.model.Task
+import com.jaixlabs.checksy.R
+import com.jaixlabs.checksy.data.model.Task
 
 @Composable
 fun ShareDialog(

@@ -1,7 +1,7 @@
-package com.lahsuak.apps.tasks.data.db
+package com.jaixlabs.checksy.data.db
 
 import androidx.room.*
-import com.lahsuak.apps.tasks.data.model.Notification
+import com.jaixlabs.checksy.data.model.Notification
 import kotlinx.coroutines.flow.Flow
 
 @Dao

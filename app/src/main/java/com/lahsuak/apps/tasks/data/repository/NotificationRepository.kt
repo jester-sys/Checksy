@@ -1,6 +1,6 @@
-package com.lahsuak.apps.tasks.data.repository
+package com.jaixlabs.checksy.data.repository
 
-import com.lahsuak.apps.tasks.data.model.Notification
+import com.jaixlabs.checksy.data.model.Notification
 import kotlinx.coroutines.flow.Flow
 
 interface NotificationRepository {

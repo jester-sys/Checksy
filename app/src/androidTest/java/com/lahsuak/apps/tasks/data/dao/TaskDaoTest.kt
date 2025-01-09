@@ -1,13 +1,13 @@
-package com.lahsuak.apps.tasks.data.dao
+package com.jaixlabs.checksy.data.dao
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.asLiveData
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import com.lahsuak.apps.tasks.data.db.TaskDao
-import com.lahsuak.apps.tasks.data.db.TaskDatabase
-import com.lahsuak.apps.tasks.data.model.SortOrder
-import com.lahsuak.apps.tasks.data.model.Task
+import com.jaixlabs.checksy.data.db.TaskDao
+import com.jaixlabs.checksy.data.db.TaskDatabase
+import com.jaixlabs.checksy.data.model.SortOrder
+import com.jaixlabs.checksy.data.model.Task
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.*

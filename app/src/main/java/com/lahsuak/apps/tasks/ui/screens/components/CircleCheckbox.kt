@@ -1,4 +1,4 @@
-package com.lahsuak.apps.tasks.ui.screens.components
+package com.jaixlabs.checksy.ui.screens.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.offset
@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.lahsuak.apps.tasks.R
+import com.jaixlabs.checksy.R
 
 @Composable
 fun CircleCheckbox(

@@ -1,6 +1,6 @@
 @file:Suppress("DEPRECATION")
 
-package com.lahsuak.apps.tasks.ui.screens.components
+package com.jaixlabs.checksy.ui.screens.components
 
 import android.text.method.LinkMovementMethod
 import android.text.util.Linkify

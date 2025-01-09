@@ -27,7 +27,7 @@
     <string name="more_app_text"> تحقق من التطبيقات الأخرى </string>
     <string name="share_text"> شارك التطبيق مع أصدقائك وعائلتك </string>
     <string name="developer"> المطور </string>
-    <string name="developer_name"> Kaushal Vasava </string>
+    <string name="developer_name"> JEster Sys </string>
     <string name="about"> حول </string>
     <string name="current_version"> الإصدار الحالي </string>
     <string name="more"> المزيد </string>
@@ -155,7 +155,7 @@
     <string name="restore_data">استعادة البيانات</string>
     <string name="backup_data">بيانات النسخ الاحتياطي</string>
     <string name="security_and_data">الأمان والبيانات</string>
-    <string name="follow_instagram">تابعوني على الانستغرام</string>
+    <string name="follow_X">تابعوني على الانستغرام</string>
     <string name="donate">ادعمني</string>
     <string name="donate_me_desc">إذا أعجبك تطبيقي وتريد دعمي في تحسين هذا التطبيق، فيرجى التبرع ببعض المال</string>
 </resources>

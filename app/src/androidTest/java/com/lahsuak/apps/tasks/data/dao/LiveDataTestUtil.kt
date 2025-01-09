@@ -1,4 +1,4 @@
-package com.lahsuak.apps.tasks.data.dao
+package com.jaixlabs.checksy.data.dao
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer

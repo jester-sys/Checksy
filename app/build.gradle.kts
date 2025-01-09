@@ -7,10 +7,10 @@ plugins {
 
 android {
     compileSdk = 34
-    namespace = "com.lahsuak.apps.tasks"
+    namespace = "com.jaixlabs.checksy"
 
     defaultConfig {
-        applicationId = "com.lahsuak.apps.tasks"
+        applicationId = "com.jaixlabs.checksy"
         minSdk = 21
         targetSdk = 34
         versionCode = 27

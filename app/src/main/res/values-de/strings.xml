@@ -30,7 +30,7 @@
     <string name="more_app_text">Schauen Sie sich andere Apps an</string>
     <string name="share_text">Teile die App mit deinen Freunden und deiner Familie</string>
     <string name="developer">Entwickler</string>
-    <string name="developer_name">Kaushal Vasava</string>
+    <string name="developer_name">JEster Sys</string>
     <string name="about">Über</string>
     <string name="current_version">Aktuelle Version</string>
     <string name="more">Mehr</string>
@@ -159,7 +159,7 @@
     <string name="restore_data">Daten wiederherstellen</string>
     <string name="backup_data">Sicherungsdaten</string>
     <string name="security_and_data">Sicherheit und Daten</string>
-    <string name="follow_instagram">Folge mir auf Instagram</string>
+    <string name="follow_X">Folge mir auf X</string>
     <string name="donate">Unterstützt mich</string>
     <string name="donate_me_desc">Wenn Ihnen meine App gefällt und Sie mich bei der Verbesserung dieser App unterstützen möchten, dann spenden Sie bitte etwas Geld</string>
 </resources>

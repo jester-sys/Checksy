@@ -1,5 +1,5 @@
 
-package com.lahsuak.apps.tasks.ui.theme
+package com.jaixlabs.checksy.ui.theme
 
 import android.app.Activity
 import android.os.Build

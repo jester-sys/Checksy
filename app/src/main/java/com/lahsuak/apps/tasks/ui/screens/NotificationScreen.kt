@@ -1,4 +1,4 @@
-package com.lahsuak.apps.tasks.ui.screens
+package com.jaixlabs.checksy.ui.screens
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -47,10 +47,10 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.lahsuak.apps.tasks.R
-import com.lahsuak.apps.tasks.data.model.Notification
-import com.lahsuak.apps.tasks.ui.viewmodel.NotificationViewModel
-import com.lahsuak.apps.tasks.util.DateUtil
+import com.jaixlabs.checksy.R
+import com.jaixlabs.checksy.data.model.Notification
+import com.jaixlabs.checksy.ui.viewmodel.NotificationViewModel
+import com.jaixlabs.checksy.util.DateUtil
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable

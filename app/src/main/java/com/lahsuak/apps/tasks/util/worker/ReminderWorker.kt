@@ -1,10 +1,10 @@
-package com.lahsuak.apps.tasks.util.worker
+package com.jaixlabs.checksy.util.worker
 
 import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import com.lahsuak.apps.tasks.util.AppConstants
-import com.lahsuak.apps.tasks.util.NotificationUtil
+import com.jaixlabs.checksy.util.AppConstants
+import com.jaixlabs.checksy.util.NotificationUtil
 
 class ReminderWorker(
     private val context: Context,

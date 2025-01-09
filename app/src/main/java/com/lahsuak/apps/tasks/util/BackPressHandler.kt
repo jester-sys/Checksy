@@ -1,4 +1,4 @@
-package com.lahsuak.apps.tasks.util
+package com.jaixlabs.checksy.util
 
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.OnBackPressedDispatcher

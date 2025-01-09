@@ -30,7 +30,7 @@
     <string name="more_app_text">Confira outros aplicativos</string>
     <string name="share_text">Compartilhe o aplicativo com seus amigos e familiares</string>
     <string name="developer">Desenvolvedor</string>
-    <string name="developer_name">Kaushal Vasava</string>
+    <string name="developer_name">JEster Sys</string>
     <string name="about">Sobre</string>
     <string name="current_version">Versão atual</string>
     <string name="more">Mais</string>
@@ -158,7 +158,7 @@
     <string name="restore_data">Επαναφορά δεδομένων</string>
     <string name="backup_data">Δεδομένα αντιγράφων ασφαλείας</string>
     <string name="security_and_data">Ασφάλεια και δεδομένα</string>
-    <string name="follow_instagram">Ακολουθήστε με στο Instagram</string>
+    <string name="follow_X">Ακολουθήστε με στο X</string>
     <string name="donate">Υποστηρίξτε με</string>
     <string name="donate_me_desc">Αν σας αρέσει η εφαρμογή μου και θέλετε να με υποστηρίξετε στη βελτίωση αυτής της εφαρμογής, παρακαλώ δωρίστε κάποια χρήματα</string>
 </resources>

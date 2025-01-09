@@ -1,4 +1,4 @@
-package com.lahsuak.apps.tasks.ui.screens.settings
+package com.jaixlabs.checksy.ui.screens.settings
 
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -29,19 +29,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.lahsuak.apps.tasks.BuildConfig
-import com.lahsuak.apps.tasks.R
-import com.lahsuak.apps.tasks.ui.viewmodel.SettingsViewModel
-import com.lahsuak.apps.tasks.util.AppConstants
-import com.lahsuak.apps.tasks.util.AppConstants.SharedPreference.DEFAULT_FONT_SIZE
-import com.lahsuak.apps.tasks.util.AppConstants.SharedPreference.DEFAULT_LANGUAGE_VALUE
-import com.lahsuak.apps.tasks.util.AppConstants.SharedPreference.DEFAULT_THEME
-import com.lahsuak.apps.tasks.util.AppUtil
-import com.lahsuak.apps.tasks.util.LanguageUtil.Companion.changeLocale
-import com.lahsuak.apps.tasks.util.biometric.BiometricAuthListener
-import com.lahsuak.apps.tasks.util.biometric.BiometricUtil
-import com.lahsuak.apps.tasks.util.preference.SettingPreferences
-import com.lahsuak.apps.tasks.util.toast
+import com.jaixlabs.checksy.BuildConfig
+import com.jaixlabs.checksy.R
+import com.jaixlabs.checksy.ui.viewmodel.SettingsViewModel
+import com.jaixlabs.checksy.util.AppConstants
+import com.jaixlabs.checksy.util.AppConstants.SharedPreference.DEFAULT_FONT_SIZE
+import com.jaixlabs.checksy.util.AppConstants.SharedPreference.DEFAULT_LANGUAGE_VALUE
+import com.jaixlabs.checksy.util.AppConstants.SharedPreference.DEFAULT_THEME
+import com.jaixlabs.checksy.util.AppUtil
+import com.jaixlabs.checksy.util.LanguageUtil.Companion.changeLocale
+import com.jaixlabs.checksy.util.biometric.BiometricAuthListener
+import com.jaixlabs.checksy.util.biometric.BiometricUtil
+import com.jaixlabs.checksy.util.preference.SettingPreferences
+import com.jaixlabs.checksy.util.toast
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -373,11 +373,11 @@ fun SettingScreen(
                             }
                         ) {},
                         SettingItem(
-                            title = context.getString(R.string.follow_instagram),
-                            icon = R.drawable.ic_instagram,
+                            title = context.getString(R.string.follow_X),
+                            icon = R.drawable.ic_x,
                             type = PreferenceType.NORMAL,
                             action = { _, _ ->
-                                AppUtil.openInstagram(context)
+                                AppUtil.openX(context)
                             }
                         ) {},
                         SettingItem(
@@ -408,11 +408,11 @@ fun SettingScreen(
                             type = PreferenceType.NORMAL,
                             action = { _, _ -> }
                         ) {},
-                        SettingItem(
-                            title = context.getString(R.string.made_in_india),
-                            type = PreferenceType.NORMAL,
-                            action = { _, _ -> }
-                        ) {},
+//                        SettingItem(
+//                            title = context.getString(R.string.made_in_india),
+//                            type = PreferenceType.NORMAL,
+//                            action = { _, _ -> }
+//                        ) {},
                     )
                 )
             )

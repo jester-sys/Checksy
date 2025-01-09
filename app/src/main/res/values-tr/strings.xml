@@ -30,7 +30,7 @@
     <string name="more_app_text">Diğer uygulamalara göz atın</string>
     <string name="share_text">Uygulamayı arkadaşlarınız ve ailenizle paylaşın</string>
     <string name="developer">Geliştirici</string>
-    <string name="developer_name">Kaushal Vasava</string>
+    <string name="developer_name">JEster Sys</string>
     <string name="about">Hakkında</string>
     <string name="current_version">Geçerli sürüm</string>
     <string name="more">Diğer</string>
@@ -159,7 +159,7 @@
     <string name="restore_data">Verileri Geri Yükle</string>
     <string name="backup_data">Verileri Yedekle</string>
     <string name="security_and_data">Güvenlik ve Veriler</string>
-    <string name="follow_instagram">Beni Instagram\'da takip et</string>
+    <string name="follow_X">Beni X\'da takip et</string>
     <string name="donate">Beni destekleyin</string>
     <string name="donate_me_desc">Uygulamamı beğendiyseniz ve bu uygulamayı geliştirmemde bana destek olmak istiyorsanız lütfen biraz para bağışlayın</string>
 </resources>

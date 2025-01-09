@@ -1,4 +1,4 @@
-package com.lahsuak.apps.tasks.util.preference
+package com.jaixlabs.checksy.util.preference
 
 import android.content.Context
 import androidx.datastore.core.DataStore
@@ -8,11 +8,11 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import com.lahsuak.apps.tasks.model.SortOrder
-import com.lahsuak.apps.tasks.util.AppConstants
-import com.lahsuak.apps.tasks.util.AppConstants.SharedPreference.DEFAULT_FONT_SIZE
-import com.lahsuak.apps.tasks.util.AppConstants.SharedPreference.DEFAULT_LANGUAGE_VALUE
-import com.lahsuak.apps.tasks.util.AppConstants.SharedPreference.DEFAULT_THEME
+import com.jaixlabs.checksy.model.SortOrder
+import com.jaixlabs.checksy.util.AppConstants
+import com.jaixlabs.checksy.util.AppConstants.SharedPreference.DEFAULT_FONT_SIZE
+import com.jaixlabs.checksy.util.AppConstants.SharedPreference.DEFAULT_LANGUAGE_VALUE
+import com.jaixlabs.checksy.util.AppConstants.SharedPreference.DEFAULT_THEME
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map

@@ -1,6 +1,6 @@
-package com.lahsuak.apps.tasks.model
+package com.jaixlabs.checksy.model
 
-import com.lahsuak.apps.tasks.data.model.SubTask
+import com.jaixlabs.checksy.data.model.SubTask
 
 sealed class SubTaskEvent {
     object Initial : SubTaskEvent()

@@ -7,8 +7,8 @@
         android:shortcutShortLabel="@string/new_task">
         <intent
             android:action="android.intent.action.VIEW"
-            android:data="tasks://apps.com.lahsuak.apps.tasks/edittask/true"
-            android:targetClass="com.lahsuak.apps.tasks.ui.MainActivity"
-            android:targetPackage="com.lahsuak.apps.tasks" />
+            android:data="tasks://apps.com.jaixlabs.checksy/edittask/true"
+            android:targetClass="com.jaixlabs.checksy.ui.MainActivity"
+            android:targetPackage="com.jaixlabs.checksy" />
     </shortcut>
 </shortcuts>

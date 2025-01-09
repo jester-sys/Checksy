@@ -1,4 +1,4 @@
-package com.lahsuak.apps.tasks.ui.screens
+package com.jaixlabs.checksy.ui.screens
 
 import android.content.res.Configuration
 import android.widget.CalendarView
@@ -57,17 +57,17 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.lahsuak.apps.tasks.R
-import com.lahsuak.apps.tasks.TaskApp
-import com.lahsuak.apps.tasks.data.model.Task
-import com.lahsuak.apps.tasks.ui.screens.components.CircularProgressStatus
-import com.lahsuak.apps.tasks.ui.theme.TaskAppTheme
-import com.lahsuak.apps.tasks.ui.theme.lightGreen
-import com.lahsuak.apps.tasks.ui.viewmodel.TaskViewModel
-import com.lahsuak.apps.tasks.util.DateUtil
-import com.lahsuak.apps.tasks.util.WindowSize
-import com.lahsuak.apps.tasks.util.WindowType
-import com.lahsuak.apps.tasks.util.rememberWindowSize
+import com.jaixlabs.checksy.R
+import com.jaixlabs.checksy.TaskApp
+import com.jaixlabs.checksy.data.model.Task
+import com.jaixlabs.checksy.ui.screens.components.CircularProgressStatus
+import com.jaixlabs.checksy.ui.theme.TaskAppTheme
+import com.jaixlabs.checksy.ui.theme.lightGreen
+import com.jaixlabs.checksy.ui.viewmodel.TaskViewModel
+import com.jaixlabs.checksy.util.DateUtil
+import com.jaixlabs.checksy.util.WindowSize
+import com.jaixlabs.checksy.util.WindowType
+import com.jaixlabs.checksy.util.rememberWindowSize
 import java.util.Calendar
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)

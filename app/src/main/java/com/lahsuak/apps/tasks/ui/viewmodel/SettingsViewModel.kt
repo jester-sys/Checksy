@@ -1,4 +1,4 @@
-package com.lahsuak.apps.tasks.ui.viewmodel
+package com.jaixlabs.checksy.ui.viewmodel
 
 import android.content.Context
 import android.net.Uri
@@ -7,13 +7,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.lahsuak.apps.tasks.data.db.TaskDatabase
-import com.lahsuak.apps.tasks.model.SortOrder
-import com.lahsuak.apps.tasks.data.model.SubTask
-import com.lahsuak.apps.tasks.data.model.Task
-import com.lahsuak.apps.tasks.data.repository.BackupRepository
-import com.lahsuak.apps.tasks.data.repository.TaskRepository
-import com.lahsuak.apps.tasks.util.preference.PreferenceManager
+import com.jaixlabs.checksy.data.db.TaskDatabase
+import com.jaixlabs.checksy.model.SortOrder
+import com.jaixlabs.checksy.data.model.SubTask
+import com.jaixlabs.checksy.data.model.Task
+import com.jaixlabs.checksy.data.repository.BackupRepository
+import com.jaixlabs.checksy.data.repository.TaskRepository
+import com.jaixlabs.checksy.util.preference.PreferenceManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

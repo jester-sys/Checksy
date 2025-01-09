@@ -1,4 +1,4 @@
-package com.lahsuak.apps.tasks.util.preference
+package com.jaixlabs.checksy.util.preference
 
 data class SettingPreferences(
     val theme: String,

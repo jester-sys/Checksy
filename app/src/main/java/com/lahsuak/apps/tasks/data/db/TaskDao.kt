@@ -1,4 +1,4 @@
-package com.lahsuak.apps.tasks.data.db
+package com.jaixlabs.checksy.data.db
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -6,9 +6,9 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.lahsuak.apps.tasks.data.model.SubTask
-import com.lahsuak.apps.tasks.data.model.Task
-import com.lahsuak.apps.tasks.model.SortOrder
+import com.jaixlabs.checksy.data.model.SubTask
+import com.jaixlabs.checksy.data.model.Task
+import com.jaixlabs.checksy.model.SortOrder
 import kotlinx.coroutines.flow.Flow
 
 @Dao

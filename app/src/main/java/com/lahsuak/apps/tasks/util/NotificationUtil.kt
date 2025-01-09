@@ -1,4 +1,4 @@
-package com.lahsuak.apps.tasks.util
+package com.jaixlabs.checksy.util
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -15,9 +15,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.net.toUri
-import com.lahsuak.apps.tasks.R
-import com.lahsuak.apps.tasks.data.model.Task
-import com.lahsuak.apps.tasks.ui.MainActivity
+import com.jaixlabs.checksy.R
+import com.jaixlabs.checksy.data.model.Task
+import com.jaixlabs.checksy.ui.MainActivity
 
 object NotificationUtil {
     @SuppressLint("MissingPermission")

@@ -1,8 +1,8 @@
-package com.lahsuak.apps.tasks.data.model
+package com.jaixlabs.checksy.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.lahsuak.apps.tasks.util.AppConstants.NOTIFICATION_TABLE
+import com.jaixlabs.checksy.util.AppConstants.NOTIFICATION_TABLE
 
 @Entity(tableName = NOTIFICATION_TABLE)
 data class Notification(

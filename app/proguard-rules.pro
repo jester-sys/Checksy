@@ -1,8 +1,8 @@
 -keepattributes *Annotation*, Signature, Exception
--keep class com.lahsuak.apps.tasks.data.model.** { *; }
--keep class com.lahsuak.apps.tasks.model.Category { *; }
--keep class com.lahsuak.apps.tasks.util.AppConstants
--keep class com.lahsuak.apps.tasks.util.NavigationConstants
+-keep class com.jaixlabs.checksy.data.model.** { *; }
+-keep class com.jaixlabs.checksy.model.Category { *; }
+-keep class com.jaixlabs.checksy.util.AppConstants
+-keep class com.jaixlabs.checksy.util.NavigationConstants
 
 #-keepattributes SourceFile, LineNumberTable
 #-keepattributes LocalVariableTable, LocalVariableTypeTable

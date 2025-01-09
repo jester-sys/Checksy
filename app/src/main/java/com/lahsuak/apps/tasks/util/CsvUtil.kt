@@ -1,11 +1,11 @@
-package com.lahsuak.apps.tasks.util
+package com.jaixlabs.checksy.util
 
-import com.lahsuak.apps.tasks.util.AppConstants.DEFAULT_ESCAPE_CHARACTER
-import com.lahsuak.apps.tasks.util.AppConstants.DEFAULT_LINE_END
-import com.lahsuak.apps.tasks.util.AppConstants.DEFAULT_QUOTE_CHARACTER
-import com.lahsuak.apps.tasks.util.AppConstants.DEFAULT_SEPARATOR
-import com.lahsuak.apps.tasks.util.AppConstants.NO_ESCAPE_CHARACTER
-import com.lahsuak.apps.tasks.util.AppConstants.NO_QUOTE_CHARACTER
+import com.jaixlabs.checksy.util.AppConstants.DEFAULT_ESCAPE_CHARACTER
+import com.jaixlabs.checksy.util.AppConstants.DEFAULT_LINE_END
+import com.jaixlabs.checksy.util.AppConstants.DEFAULT_QUOTE_CHARACTER
+import com.jaixlabs.checksy.util.AppConstants.DEFAULT_SEPARATOR
+import com.jaixlabs.checksy.util.AppConstants.NO_ESCAPE_CHARACTER
+import com.jaixlabs.checksy.util.AppConstants.NO_QUOTE_CHARACTER
 
 internal object CsvUtil {
 

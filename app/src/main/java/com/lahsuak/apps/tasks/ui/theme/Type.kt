@@ -1,4 +1,4 @@
-package com.lahsuak.apps.tasks.ui.theme
+package com.jaixlabs.checksy.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

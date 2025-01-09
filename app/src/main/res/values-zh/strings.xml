@@ -30,7 +30,7 @@
     <string name="more_app_text">查看其他應用</string>
     <string name="share_text">與您的朋友和家人分享應用程序</string>
     <string name="developer">開發者</string>
-    <string name="developer_name">Kaushal Vasava</string>
+    <string name="developer_name">JEster Sys</string>
     <string name="about">關於</string>
     <string name="current_version">當前版本</string>
     <string name="more">更多</string>
@@ -159,7 +159,7 @@
     <string name="restore_data">恢复数据</string>
     <string name="backup_data">备份数据</string>
     <string name="security_and_data">安全和数据</string>
-    <string name="follow_instagram">在 Instagram 上关注我</string>
+    <string name="follow_X">在 X 上关注我</string>
     <string name="donate">支持我</string>
     <string name="donate_me_desc">如果您喜欢我的应用程序并希望支持我改进此应用程序，请捐赠一些钱</string>
 </resources>

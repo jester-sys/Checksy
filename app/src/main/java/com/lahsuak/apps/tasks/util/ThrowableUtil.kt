@@ -1,7 +1,7 @@
-package com.lahsuak.apps.tasks.util
+package com.jaixlabs.checksy.util
 
 import android.util.Log
-import com.lahsuak.apps.tasks.BuildConfig
+import com.jaixlabs.checksy.BuildConfig
 
 const val LOG_ERROR_TAG = "[logError]"
 inline fun Throwable.logError(causeProvider: Throwable.() -> Throwable = { this }) {

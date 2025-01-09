@@ -1,4 +1,4 @@
-package com.lahsuak.apps.tasks.util
+package com.jaixlabs.checksy.util
 
 object AppConstants {
     const val UPDATE_REQUEST_CODE = 101
@@ -36,10 +36,10 @@ object AppConstants {
     const val ANY_MIME_TYPE = "*/*"
     const val BACKUP = "backup"
     const val RESTORE = "restore"
-    const val INSTAGRAM_URL = "https://www.instagram.com/kaushalvasava_apps/"
+    const val X_URL = "https://www.X.com/kaushalvasava_apps/"
     const val DONATION = "https://www.buymeacoffee.com/kaushal.developer"
 
-    const val DEEP_LINK_SUBTASK  = "tasks://com.lahsuak.apps.tasks/subtaskscreen/"
+    const val DEEP_LINK_SUBTASK  = "tasks://com.jaixlabs.checksy/subtaskscreen/"
     // Preferences key
     object SharedPreference {
         //theme

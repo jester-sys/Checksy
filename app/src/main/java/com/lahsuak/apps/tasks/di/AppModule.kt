@@ -1,4 +1,4 @@
-package com.lahsuak.apps.tasks.di
+package com.jaixlabs.checksy.di
 
 import android.app.Application
 import android.content.Context
@@ -6,13 +6,13 @@ import android.content.SharedPreferences
 import androidx.room.Room
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.lahsuak.apps.tasks.data.db.TaskDatabase
-import com.lahsuak.apps.tasks.data.repository.NotificationRepository
-import com.lahsuak.apps.tasks.data.repository.NotificationRepositoryImpl
-import com.lahsuak.apps.tasks.data.repository.TaskRepository
-import com.lahsuak.apps.tasks.data.repository.TaskRepositoryImpl
-import com.lahsuak.apps.tasks.util.AppConstants
-import com.lahsuak.apps.tasks.util.AppConstants.DATABASE_NAME
+import com.jaixlabs.checksy.data.db.TaskDatabase
+import com.jaixlabs.checksy.data.repository.NotificationRepository
+import com.jaixlabs.checksy.data.repository.NotificationRepositoryImpl
+import com.jaixlabs.checksy.data.repository.TaskRepository
+import com.jaixlabs.checksy.data.repository.TaskRepositoryImpl
+import com.jaixlabs.checksy.util.AppConstants
+import com.jaixlabs.checksy.util.AppConstants.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -30,7 +30,7 @@
     <string name="more_app_text">Kyk na ander programme</string>
     <string name="share_text">Deel die toepassing met jou vriende en familie</string>
     <string name="developer">Ontwikkelaar</string>
-    <string name="developer_name">Kaushal Vasava</string>
+    <string name="developer_name">JEster Sys</string>
     <string name="about">Meer oor</string>
     <string name="current_version">Huidige weergawe</string>
     <string name="more">Meer</string>
@@ -158,7 +158,7 @@
     <string name="restore_data">Herstel data</string>
     <string name="backup_data">Rugsteundata</string>
     <string name="security_and_data">Sekuriteit en data</string>
-    <string name="follow_instagram">Volg my op die Instagram</string>
+    <string name="follow_X">Volg my op die X</string>
     <string name="donate">Ondersteun my</string>
     <string name="donate_me_desc">As jy van my toepassing hou en my wil ondersteun om hierdie toepassing te verbeter, skenk asseblief \'n geldjie</string>
  </resources>

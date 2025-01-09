@@ -1,4 +1,4 @@
-package com.lahsuak.apps.tasks.util
+package com.jaixlabs.checksy.util
 
 object NavigationConstants {
     object Screen {
@@ -13,9 +13,9 @@ object NavigationConstants {
         const val TASK_ID = "task_id"
         const val HAS_NOTIFICATION = "has_notification"
 
-        const val SUBTASK_DEEP_LINK = "tasks://com.lahsuak.apps.tasks/subtaskscreen/{task_id}/{has_notification}"
+        const val SUBTASK_DEEP_LINK = "tasks://com.jaixlabs.checksy/subtaskscreen/{task_id}/{has_notification}"
 
-        const val ADD_UPDATE_TASK_DEEP_LINK = "tasks://com.lahsuak.apps.tasks/edittask/true"
+        const val ADD_UPDATE_TASK_DEEP_LINK = "tasks://com.jaixlabs.checksy/edittask/true"
     }
 
 }

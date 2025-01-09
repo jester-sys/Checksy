@@ -1,4 +1,4 @@
-package com.lahsuak.apps.tasks.ui.screens.components
+package com.jaixlabs.checksy.ui.screens.components
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background

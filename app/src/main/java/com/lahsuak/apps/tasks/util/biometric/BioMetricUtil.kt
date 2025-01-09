@@ -1,4 +1,4 @@
-package com.lahsuak.apps.tasks.util.biometric
+package com.jaixlabs.checksy.util.biometric
 
 import android.app.Activity
 import android.content.Context
@@ -11,7 +11,7 @@ import androidx.biometric.BiometricPrompt
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
-import com.lahsuak.apps.tasks.R
+import com.jaixlabs.checksy.R
 
 /**
  * Helper class for managing Biometric Authentication Process

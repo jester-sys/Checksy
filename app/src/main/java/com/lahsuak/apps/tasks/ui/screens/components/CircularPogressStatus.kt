@@ -1,4 +1,4 @@
-package com.lahsuak.apps.tasks.ui.screens.components
+package com.jaixlabs.checksy.ui.screens.components
 
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState

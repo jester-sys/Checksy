@@ -1,9 +1,9 @@
-package com.lahsuak.apps.tasks.data.repository
+package com.jaixlabs.checksy.data.repository
 
-import com.lahsuak.apps.tasks.model.SortOrder
-import com.lahsuak.apps.tasks.data.db.TaskDao
-import com.lahsuak.apps.tasks.data.model.SubTask
-import com.lahsuak.apps.tasks.data.model.Task
+import com.jaixlabs.checksy.model.SortOrder
+import com.jaixlabs.checksy.data.db.TaskDao
+import com.jaixlabs.checksy.data.model.SubTask
+import com.jaixlabs.checksy.data.model.Task
 import kotlinx.coroutines.flow.Flow
 
 class TaskRepositoryImpl(private val dao: TaskDao) : TaskRepository {

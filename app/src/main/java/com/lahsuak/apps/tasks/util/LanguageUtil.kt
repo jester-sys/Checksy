@@ -1,4 +1,4 @@
-package com.lahsuak.apps.tasks.util
+package com.jaixlabs.checksy.util
 
 import android.app.LocaleManager
 import android.content.Context

@@ -30,7 +30,7 @@
     <string name="more_app_text">Bekijk andere apps</string>
     <string name="share_text">Deel de app met je vrienden en familie</string>
     <string name="developer">Ontwikkelaar</string>
-    <string name="developer_name">Kaushal Vasava</string>
+    <string name="developer_name">JEster Sys</string>
     <string name="about">Over</string>
     <string name="current_version">Huidige versie</string>
     <string name="more">Meer</string>
@@ -158,7 +158,7 @@
     <string name="restore_data">Gegevens herstellen</string>
     <string name="backup_data">Back-upgegevens</string>
     <string name="security_and_data">Beveiliging en gegevens</string>
-    <string name="follow_instagram">Volg mij op Instagram</string>
+    <string name="follow_X">Volg mij op X</string>
     <string name="donate">Steun mij</string>
     <string name="donate_me_desc">Als je mijn app leuk vindt en me wilt steunen bij het verbeteren van deze app, doneer dan alsjeblieft wat geld</string>
 </resources>

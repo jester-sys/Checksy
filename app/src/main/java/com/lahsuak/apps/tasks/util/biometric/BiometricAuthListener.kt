@@ -1,4 +1,4 @@
-package com.lahsuak.apps.tasks.util.biometric
+package com.jaixlabs.checksy.util.biometric
 
 interface BiometricAuthListener {
     fun onBiometricAuthSuccess()

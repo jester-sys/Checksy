@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Tasks</string>
+    <string name="app_name">Checksy</string>
     <string name="task_progress">%1$d/%2$d  tasks completed</string>
     <string name="subtask_progress">%1$d/%2$d  subtasks completed</string>
     <string name="task_completed">Task completed</string>
@@ -21,17 +21,17 @@
     <string name="attachment_title">Download incoming attachments</string>
     <string name="attachment_summary_on">Automatically download attachments for incoming emails</string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
-    <string name="feedback_text">Send feedback on Instagram, Twitter or on mail, If the app keeps crashing \'Clear app data\' from the App settings</string>
+    <string name="feedback_text">Send feedback on X, Twitter or on mail, If the app keeps crashing \'Clear app data\' from the App settings</string>
     <string name="rating_text">Love this app? Let us know in Google Play Store how we can make it even better</string>
     <string name="more_app_text">Click here to see my other apps</string>
     <string name="share_text">Share the app with your friends and family</string>
     <string name="developer">Developer</string>
-    <string name="developer_name">Kaushal Vasava</string>
+    <string name="developer_name">JEster Sys</string>
     <string name="about">About</string>
     <string name="current_version">Current version</string>
     <string name="more">More</string>
-    <string name="market_string" translatable="false">market://search?q=pub:Kaushal Vasava</string>
-    <string name="market_developer_string" translatable="false">http://play.google.com/store/apps/developer?id=Kaushal Vasava</string>
+    <string name="market_string" translatable="false">market://search?q=pub:JEster Sys</string>
+    <string name="market_developer_string" translatable="false">http://play.google.com/store/apps/developer?id=JEster Sys</string>
     <string name="play_store_share" translatable="false">https://play.google.com/store/apps/details?id=</string>
     <string name="contact_support">Contact Support</string>
     <string name="rating">Rate the app</string>
@@ -155,8 +155,8 @@
     <string name="show_copy">Show copy icon on individual task</string>
     <string name="visit_github">Visit GitHub</string>
     <string name="privacy_policy">Privacy policy</string>
-    <string name="portfolio" translatable="false">https://zaap.bio/KaushalVasava</string>
-    <string name="github_link" translatable="false">https://github.com/KaushalVasava</string>
+    <string name="portfolio" translatable="false">444</string>
+    <string name="github_link" translatable="false">https://github.com/jester-sys</string>
     <string name="privacy_policy_link" translatable="false">https://doc-hosting.flycricket.io/tasks-to-do-list-reminders/a4486a8e-2c2b-4ae8-8ade-59c845a8276e/privacy</string>
 
     <string name="prompt_info_title">Task App Authentication</string>
@@ -165,7 +165,7 @@
     <string name="restore_data">Restore Data</string>
     <string name="backup_data">Backup Data</string>
     <string name="security_and_data">Security and Data</string>
-    <string name="follow_instagram">Follow me on the Instagram</string>
+    <string name="follow_X">Follow me on the X</string>
     <string name="donate">Support me</string>
     <string name="donate_me_desc">If you like my app and want to support me in improving this app then please donate some money</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.lahsuak.apps.tasks.ui.viewmodel
+package com.jaixlabs.checksy.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -1,4 +1,4 @@
-package com.lahsuak.apps.tasks.ui.screens
+package com.jaixlabs.checksy.ui.screens
 
 import android.app.Activity
 import android.speech.RecognizerIntent
@@ -96,24 +96,24 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
 import androidx.navigation.NavController
-import com.lahsuak.apps.tasks.R
-import com.lahsuak.apps.tasks.data.model.Task
-import com.lahsuak.apps.tasks.model.SortOrder
-import com.lahsuak.apps.tasks.model.TaskEvent
-import com.lahsuak.apps.tasks.ui.MainActivity
-import com.lahsuak.apps.tasks.ui.navigation.NavigationItem
-import com.lahsuak.apps.tasks.ui.screens.components.ChipGroup
-import com.lahsuak.apps.tasks.ui.screens.components.LinearProgressStatus
-import com.lahsuak.apps.tasks.ui.screens.components.ShareDialog
-import com.lahsuak.apps.tasks.ui.screens.components.TaskItem
-import com.lahsuak.apps.tasks.ui.screens.dialog.AddUpdateTaskScreen
-import com.lahsuak.apps.tasks.ui.viewmodel.TaskViewModel
-import com.lahsuak.apps.tasks.util.AppUtil
-import com.lahsuak.apps.tasks.util.DateUtil
-import com.lahsuak.apps.tasks.util.WindowSize
-import com.lahsuak.apps.tasks.util.WindowType
-import com.lahsuak.apps.tasks.util.preference.FilterPreferences
-import com.lahsuak.apps.tasks.util.preference.SettingPreferences
+import com.jaixlabs.checksy.R
+import com.jaixlabs.checksy.data.model.Task
+import com.jaixlabs.checksy.model.SortOrder
+import com.jaixlabs.checksy.model.TaskEvent
+import com.jaixlabs.checksy.ui.MainActivity
+import com.jaixlabs.checksy.ui.navigation.NavigationItem
+import com.jaixlabs.checksy.ui.screens.components.ChipGroup
+import com.jaixlabs.checksy.ui.screens.components.LinearProgressStatus
+import com.jaixlabs.checksy.ui.screens.components.ShareDialog
+import com.jaixlabs.checksy.ui.screens.components.TaskItem
+import com.jaixlabs.checksy.ui.screens.dialog.AddUpdateTaskScreen
+import com.jaixlabs.checksy.ui.viewmodel.TaskViewModel
+import com.jaixlabs.checksy.util.AppUtil
+import com.jaixlabs.checksy.util.DateUtil
+import com.jaixlabs.checksy.util.WindowSize
+import com.jaixlabs.checksy.util.WindowType
+import com.jaixlabs.checksy.util.preference.FilterPreferences
+import com.jaixlabs.checksy.util.preference.SettingPreferences
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
@@ -567,7 +567,7 @@ fun TaskScreen(
                         }
                     ) {
                         Image(
-                            painterResource(R.drawable.ic_add_task2),
+                            painterResource(R.drawable.logo_icon),
                             stringResource(
                                 R.string.add_task
                             ),

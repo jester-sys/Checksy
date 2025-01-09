@@ -1,11 +1,11 @@
-package com.lahsuak.apps.tasks.util
+package com.jaixlabs.checksy.util
 
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
-import com.lahsuak.apps.tasks.BuildConfig
-import com.lahsuak.apps.tasks.TaskApp
+import com.jaixlabs.checksy.BuildConfig
+import com.jaixlabs.checksy.TaskApp
 
 inline fun Context?.toast(crossinline msgProvider: () -> String) {
     this ?: return

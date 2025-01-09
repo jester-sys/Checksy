@@ -1,4 +1,4 @@
-package com.lahsuak.apps.tasks.model
+package com.jaixlabs.checksy.model
 
 import androidx.annotation.ColorInt
 

@@ -1,9 +1,9 @@
-package com.lahsuak.apps.tasks.ui.viewmodel
+package com.jaixlabs.checksy.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.lahsuak.apps.tasks.data.model.Notification
-import com.lahsuak.apps.tasks.data.repository.NotificationRepository
+import com.jaixlabs.checksy.data.model.Notification
+import com.jaixlabs.checksy.data.repository.NotificationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

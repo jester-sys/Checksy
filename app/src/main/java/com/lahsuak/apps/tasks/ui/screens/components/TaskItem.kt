@@ -1,4 +1,4 @@
-package com.lahsuak.apps.tasks.ui.screens.components
+package com.jaixlabs.checksy.ui.screens.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.spring
@@ -60,12 +60,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.lahsuak.apps.tasks.R
-import com.lahsuak.apps.tasks.TaskApp
-import com.lahsuak.apps.tasks.data.model.Task
-import com.lahsuak.apps.tasks.util.AppUtil
-import com.lahsuak.apps.tasks.util.DateUtil
-import com.lahsuak.apps.tasks.util.preference.SettingPreferences
+import com.jaixlabs.checksy.R
+import com.jaixlabs.checksy.TaskApp
+import com.jaixlabs.checksy.data.model.Task
+import com.jaixlabs.checksy.util.AppUtil
+import com.jaixlabs.checksy.util.DateUtil
+import com.jaixlabs.checksy.util.preference.SettingPreferences
 import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterialApi::class)

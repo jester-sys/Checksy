@@ -1,4 +1,4 @@
-package com.lahsuak.apps.tasks.ui.widget
+package com.jaixlabs.checksy.ui.widget
 
 import android.app.PendingIntent
 import android.app.TaskStackBuilder
@@ -26,10 +26,10 @@ import androidx.glance.background
 import androidx.glance.layout.Row
 import androidx.glance.layout.padding
 import androidx.glance.text.Text
-import com.lahsuak.apps.tasks.R
-import com.lahsuak.apps.tasks.ui.MainActivity
-import com.lahsuak.apps.tasks.ui.theme.lightBlue
-import com.lahsuak.apps.tasks.util.NavigationConstants
+import com.jaixlabs.checksy.R
+import com.jaixlabs.checksy.ui.MainActivity
+import com.jaixlabs.checksy.ui.theme.lightBlue
+import com.jaixlabs.checksy.util.NavigationConstants
 
 
 object TaskWidgetCompose : GlanceAppWidget() {

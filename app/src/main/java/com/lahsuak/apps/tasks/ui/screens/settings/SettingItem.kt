@@ -1,5 +1,5 @@
 
-package com.lahsuak.apps.tasks.ui.screens.settings
+package com.jaixlabs.checksy.ui.screens.settings
 
 import androidx.annotation.DrawableRes
 import java.util.UUID

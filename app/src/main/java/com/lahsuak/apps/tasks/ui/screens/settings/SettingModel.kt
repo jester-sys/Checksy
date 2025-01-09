@@ -1,4 +1,4 @@
-package com.lahsuak.apps.tasks.ui.screens.settings
+package com.jaixlabs.checksy.ui.screens.settings
 
 import java.util.UUID
 

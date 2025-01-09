@@ -27,7 +27,7 @@
     <string name="more_app_text">他のアプリをチェックする</string>
     <string name="share_text">アプリを友達や家族と共有する</string>
     <string name="developer">開発者</string>
-    <string name="developer_name"> Kaushal Vasava </string>
+    <string name="developer_name"> JEster Sys </string>
     <string name="about">概要</string>
     <string name="current_version">現在のバージョン</string>
     <string name="more">その他</string>
@@ -156,7 +156,7 @@
     <string name="restore_data">データの復元</string>
     <string name="backup_data">バックアップデータ</string>
     <string name="security_and_data">セキュリティとデータ</string>
-    <string name="follow_instagram">インスタグラムでフォローしてください</string>
+    <string name="follow_X">インスタグラムでフォローしてください</string>
     <string name="donate">サポートしてください</string>
     <string name="donate_me_desc">私のアプリが気に入って、このアプリの改善をサポートしたい場合は、お金を寄付してください</string>
 </resources>

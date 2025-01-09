@@ -1,4 +1,4 @@
-package com.lahsuak.apps.tasks.ui.screens.dialog
+package com.jaixlabs.checksy.ui.screens.dialog
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
@@ -61,17 +61,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
-import com.lahsuak.apps.tasks.R
-import com.lahsuak.apps.tasks.TaskApp
-import com.lahsuak.apps.tasks.data.model.Task
-import com.lahsuak.apps.tasks.ui.screens.components.CheckBoxWithText
-import com.lahsuak.apps.tasks.ui.screens.components.RoundedColorIcon
-import com.lahsuak.apps.tasks.ui.screens.components.RoundedOutlinedTextField
-import com.lahsuak.apps.tasks.ui.viewmodel.TaskViewModel
-import com.lahsuak.apps.tasks.util.AppUtil
-import com.lahsuak.apps.tasks.util.DateUtil
-import com.lahsuak.apps.tasks.util.rememberWindowSize
-import com.lahsuak.apps.tasks.util.toast
+import com.jaixlabs.checksy.R
+import com.jaixlabs.checksy.TaskApp
+import com.jaixlabs.checksy.data.model.Task
+import com.jaixlabs.checksy.ui.screens.components.CheckBoxWithText
+import com.jaixlabs.checksy.ui.screens.components.RoundedColorIcon
+import com.jaixlabs.checksy.ui.screens.components.RoundedOutlinedTextField
+import com.jaixlabs.checksy.ui.viewmodel.TaskViewModel
+import com.jaixlabs.checksy.util.AppUtil
+import com.jaixlabs.checksy.util.DateUtil
+import com.jaixlabs.checksy.util.rememberWindowSize
+import com.jaixlabs.checksy.util.toast
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable

@@ -1,4 +1,4 @@
-package com.lahsuak.apps.tasks.ui.screens.settings
+package com.jaixlabs.checksy.ui.screens.settings
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.annotation.DrawableRes
@@ -41,8 +41,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.lahsuak.apps.tasks.R
-import com.lahsuak.apps.tasks.ui.theme.TaskAppTheme
+import com.jaixlabs.checksy.R
+import com.jaixlabs.checksy.ui.theme.TaskAppTheme
 
 @Composable
 fun DropDownPreference(

@@ -1,6 +1,6 @@
-package com.lahsuak.apps.tasks.model
+package com.jaixlabs.checksy.model
 
-import com.lahsuak.apps.tasks.data.model.Task
+import com.jaixlabs.checksy.data.model.Task
 
 sealed class TaskEvent {
     object Initial:TaskEvent()

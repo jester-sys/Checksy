@@ -1,4 +1,4 @@
-package com.lahsuak.apps.tasks.ui.screens.dialog
+package com.jaixlabs.checksy.ui.screens.dialog
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
@@ -37,14 +37,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.lahsuak.apps.tasks.R
-import com.lahsuak.apps.tasks.data.model.SubTask
-import com.lahsuak.apps.tasks.ui.screens.components.CheckBoxWithText
-import com.lahsuak.apps.tasks.ui.screens.components.RoundedOutlinedTextField
-import com.lahsuak.apps.tasks.ui.viewmodel.SubTaskViewModel
-import com.lahsuak.apps.tasks.util.AppUtil
-import com.lahsuak.apps.tasks.util.DateUtil
-import com.lahsuak.apps.tasks.util.toast
+import com.jaixlabs.checksy.R
+import com.jaixlabs.checksy.data.model.SubTask
+import com.jaixlabs.checksy.ui.screens.components.CheckBoxWithText
+import com.jaixlabs.checksy.ui.screens.components.RoundedOutlinedTextField
+import com.jaixlabs.checksy.ui.viewmodel.SubTaskViewModel
+import com.jaixlabs.checksy.util.AppUtil
+import com.jaixlabs.checksy.util.DateUtil
+import com.jaixlabs.checksy.util.toast
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable

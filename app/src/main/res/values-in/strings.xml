@@ -30,7 +30,7 @@
     <string name="more_app_text">Lihat aplikasi lain</string>
     <string name="share_text">Berbagi aplikasi dengan teman dan keluarga Anda</string>
     <string name="developer">Pengembang</string>
-    <string name="developer_name">Kaushal Vasava</string>
+    <string name="developer_name">JEster Sys</string>
     <string name="about">Tentang</string>
     <string name="current_version">Versi saat ini</string>
     <string name="more">Lainnya</string>
@@ -158,7 +158,7 @@
     <string name="restore_data">Pulihkan Data</string>
     <string name="backup_data">Data Cadangan</string>
     <string name="security_and_data">Keamanan dan Data</string>
-    <string name="follow_instagram">Ikuti saya di Instagram</string>
+    <string name="follow_X">Ikuti saya di X</string>
     <string name="donate">Dukung saya</string>
     <string name="donate_me_desc">Jika Anda menyukai aplikasi saya dan ingin mendukung saya dalam meningkatkan aplikasi ini, silakan sumbangkan sejumlah uang</string>
 </resources>

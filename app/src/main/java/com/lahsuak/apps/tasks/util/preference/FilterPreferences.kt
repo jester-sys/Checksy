@@ -1,6 +1,6 @@
-package com.lahsuak.apps.tasks.util.preference
+package com.jaixlabs.checksy.util.preference
 
-import com.lahsuak.apps.tasks.model.SortOrder
+import com.jaixlabs.checksy.model.SortOrder
 
 data class FilterPreferences(
     val sortOrder: SortOrder,

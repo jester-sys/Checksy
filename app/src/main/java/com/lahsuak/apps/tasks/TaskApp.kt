@@ -1,16 +1,16 @@
-package com.lahsuak.apps.tasks
+package com.jaixlabs.checksy
 
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
-import com.lahsuak.apps.tasks.model.Category
-import com.lahsuak.apps.tasks.ui.theme.lightBlue
-import com.lahsuak.apps.tasks.ui.theme.lightGreen
-import com.lahsuak.apps.tasks.ui.theme.lightPink
-import com.lahsuak.apps.tasks.ui.theme.lightPurple
-import com.lahsuak.apps.tasks.ui.theme.lightYellow
-import com.lahsuak.apps.tasks.util.AppConstants
-import com.lahsuak.apps.tasks.util.AppUtil.createNotificationWorkRequest
+import com.jaixlabs.checksy.model.Category
+import com.jaixlabs.checksy.ui.theme.lightBlue
+import com.jaixlabs.checksy.ui.theme.lightGreen
+import com.jaixlabs.checksy.ui.theme.lightPink
+import com.jaixlabs.checksy.ui.theme.lightPurple
+import com.jaixlabs.checksy.ui.theme.lightYellow
+import com.jaixlabs.checksy.util.AppConstants
+import com.jaixlabs.checksy.util.AppUtil.createNotificationWorkRequest
 import dagger.hilt.android.HiltAndroidApp
 import java.text.SimpleDateFormat
 import java.util.Calendar

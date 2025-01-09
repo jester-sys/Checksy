@@ -1,4 +1,4 @@
-package com.lahsuak.apps.tasks.util
+package com.jaixlabs.checksy.util
 
 import android.annotation.SuppressLint
 import android.app.*
@@ -12,14 +12,14 @@ import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.workDataOf
 import com.google.android.material.timepicker.MaterialTimePicker
-import com.lahsuak.apps.tasks.BuildConfig
-import com.lahsuak.apps.tasks.R
-import com.lahsuak.apps.tasks.data.model.SubTask
-import com.lahsuak.apps.tasks.data.model.Task
-import com.lahsuak.apps.tasks.util.AppConstants.MARKET_PLACE_HOLDER
-import com.lahsuak.apps.tasks.util.AppConstants.SHARE_FORMAT
-import com.lahsuak.apps.tasks.util.worker.NotificationWorker
-import com.lahsuak.apps.tasks.util.worker.ReminderWorker
+import com.jaixlabs.checksy.BuildConfig
+import com.jaixlabs.checksy.R
+import com.jaixlabs.checksy.data.model.SubTask
+import com.jaixlabs.checksy.data.model.Task
+import com.jaixlabs.checksy.util.AppConstants.MARKET_PLACE_HOLDER
+import com.jaixlabs.checksy.util.AppConstants.SHARE_FORMAT
+import com.jaixlabs.checksy.util.worker.NotificationWorker
+import com.jaixlabs.checksy.util.worker.ReminderWorker
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -28,9 +28,9 @@ import java.util.concurrent.TimeUnit
 object AppUtil {
     private const val FIRST = "1. "
     private const val COPY_TAG = "Copied Text"
-    private const val INSTAGRAM_ANDROID = "com.instagram.android"
+    private const val X_ANDROID = "com.X.android"
     private const val SUFFIX_END = "/"
-    private const val INSTAGRAM_USER = "http://instagram.com/_u/"
+    private const val X_USER = "http://X.com/_u/"
 
     fun setClipboard(context: Context, text: String) {
         val clipboard =
@@ -124,17 +124,17 @@ object AppUtil {
         }
     }
 
-    fun openInstagram(context: Context) {
-        var url = AppConstants.INSTAGRAM_URL
+    fun openX(context: Context) {
+        var url = AppConstants.X_URL
         val intent = Intent(Intent.ACTION_VIEW)
         try {
-            if (context.packageManager.getPackageInfo(INSTAGRAM_ANDROID, 0) != null) {
+            if (context.packageManager.getPackageInfo(X_ANDROID, 0) != null) {
                 if (url.endsWith(SUFFIX_END)) {
                     url = url.substring(0, url.length - 1)
                 }
                 val username: String = url.substring(url.lastIndexOf(SUFFIX_END) + 1)
-                intent.data = Uri.parse(INSTAGRAM_USER+username)
-                intent.setPackage(INSTAGRAM_ANDROID)
+                intent.data = Uri.parse(X_USER+username)
+                intent.setPackage(X_ANDROID)
                 context.startActivity(intent)
             }
         } catch (e: Exception) {

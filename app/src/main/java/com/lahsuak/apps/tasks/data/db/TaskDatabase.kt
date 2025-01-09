@@ -1,10 +1,10 @@
-package com.lahsuak.apps.tasks.data.db
+package com.jaixlabs.checksy.data.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.lahsuak.apps.tasks.data.model.Notification
-import com.lahsuak.apps.tasks.data.model.SubTask
-import com.lahsuak.apps.tasks.data.model.Task
+import com.jaixlabs.checksy.data.model.Notification
+import com.jaixlabs.checksy.data.model.SubTask
+import com.jaixlabs.checksy.data.model.Task
 
 @Database(
     entities = [Task::class, SubTask::class, Notification::class],

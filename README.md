@@ -3,7 +3,7 @@ Tasks app is todo list, planner & task app for managing and organizing your dail
 
 # Click here to Download App :
 
-[![ic_playstore_github](https://github-production-user-asset-6210df.s3.amazonaws.com/49050597/276943414-3613c84c-d948-404c-866b-070f3ccbd381.png)](https://play.google.com/store/apps/details?id=com.lahsuak.apps.tasks)
+[![ic_playstore_github](https://github-production-user-asset-6210df.s3.amazonaws.com/49050597/276943414-3613c84c-d948-404c-866b-070f3ccbd381.png)](https://play.google.com/store/apps/details?id=com.jaixlabs.checksy)
 
 # Support me
 If you like my work you can support me via 

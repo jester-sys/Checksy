@@ -1,4 +1,4 @@
-package com.lahsuak.apps.tasks.util
+package com.jaixlabs.checksy.util
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue

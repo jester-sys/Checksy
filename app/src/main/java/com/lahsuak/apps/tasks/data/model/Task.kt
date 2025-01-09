@@ -1,9 +1,9 @@
-package com.lahsuak.apps.tasks.data.model
+package com.jaixlabs.checksy.data.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.lahsuak.apps.tasks.util.AppConstants
+import com.jaixlabs.checksy.util.AppConstants
 
 @Entity(tableName = AppConstants.TASK_TABLE)
 data class Task(

@@ -1,4 +1,4 @@
-package com.lahsuak.apps.tasks.ui.navigation
+package com.jaixlabs.checksy.ui.navigation
 
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
@@ -10,21 +10,21 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
-import com.lahsuak.apps.tasks.ui.screens.NotificationScreen
-import com.lahsuak.apps.tasks.ui.screens.OverviewScreen
-import com.lahsuak.apps.tasks.ui.screens.SubTaskScreen
-import com.lahsuak.apps.tasks.ui.screens.TaskScreen
-import com.lahsuak.apps.tasks.ui.screens.settings.SettingScreen
-import com.lahsuak.apps.tasks.ui.viewmodel.NotificationViewModel
-import com.lahsuak.apps.tasks.ui.viewmodel.SettingsViewModel
-import com.lahsuak.apps.tasks.ui.viewmodel.SubTaskViewModel
-import com.lahsuak.apps.tasks.ui.viewmodel.TaskViewModel
-import com.lahsuak.apps.tasks.util.NavigationConstants.Key.ADD_UPDATE_TASK_DEEP_LINK
-import com.lahsuak.apps.tasks.util.NavigationConstants.Key.HAS_NOTIFICATION
-import com.lahsuak.apps.tasks.util.NavigationConstants.Key.SUBTASK_DEEP_LINK
-import com.lahsuak.apps.tasks.util.NavigationConstants.Key.TASK_ID
-import com.lahsuak.apps.tasks.util.WindowSize
-import com.lahsuak.apps.tasks.util.preference.SettingPreferences
+import com.jaixlabs.checksy.ui.screens.NotificationScreen
+import com.jaixlabs.checksy.ui.screens.OverviewScreen
+import com.jaixlabs.checksy.ui.screens.SubTaskScreen
+import com.jaixlabs.checksy.ui.screens.TaskScreen
+import com.jaixlabs.checksy.ui.screens.settings.SettingScreen
+import com.jaixlabs.checksy.ui.viewmodel.NotificationViewModel
+import com.jaixlabs.checksy.ui.viewmodel.SettingsViewModel
+import com.jaixlabs.checksy.ui.viewmodel.SubTaskViewModel
+import com.jaixlabs.checksy.ui.viewmodel.TaskViewModel
+import com.jaixlabs.checksy.util.NavigationConstants.Key.ADD_UPDATE_TASK_DEEP_LINK
+import com.jaixlabs.checksy.util.NavigationConstants.Key.HAS_NOTIFICATION
+import com.jaixlabs.checksy.util.NavigationConstants.Key.SUBTASK_DEEP_LINK
+import com.jaixlabs.checksy.util.NavigationConstants.Key.TASK_ID
+import com.jaixlabs.checksy.util.WindowSize
+import com.jaixlabs.checksy.util.preference.SettingPreferences
 
 @Composable
 fun TaskNavHost(
