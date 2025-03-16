@@ -313,15 +313,15 @@ fun SettingScreen(
                 SettingModel(
                     category = context.getString(R.string.more),
                     items = listOf(
-                        SettingItem(
-                            title = context.getString(R.string.donate),
-                            placeholder = context.getString(R.string.donate_me_desc),
-                            icon = R.drawable.ic_coffee,
-                            type = PreferenceType.NORMAL,
-                            action = { _, _ ->
-                                AppUtil.openWebsite(context, AppConstants.DONATION)
-                            }
-                        ) {},
+//                        SettingItem(
+//                            title = context.getString(R.string.donate),
+//                            placeholder = context.getString(R.string.donate_me_desc),
+//                            icon = R.drawable.ic_coffee,
+//                            type = PreferenceType.NORMAL,
+//                            action = { _, _ ->
+//                                AppUtil.openWebsite(context, AppConstants.DONATION)
+//                            }
+//                        ) {},
                         SettingItem(
                             title = context.getString(R.string.share_app),
                             placeholder = context.getString(R.string.share_text),
@@ -363,15 +363,15 @@ fun SettingScreen(
                 SettingModel(
                     category = context.getString(R.string.about),
                     items = listOf(
-                        SettingItem(
-                            title = context.getString(R.string.developer),
-                            placeholder = context.getString(R.string.developer_name),
-                            icon = R.drawable.ic_developer,
-                            type = PreferenceType.NORMAL,
-                            action = { _, _ ->
-                                AppUtil.openWebsite(context, context.getString(R.string.portfolio))
-                            }
-                        ) {},
+//                        SettingItem(
+//                            title = context.getString(R.string.developer),
+//                            placeholder = context.getString(R.string.developer_name),
+//                            icon = R.drawable.ic_developer,
+//                            type = PreferenceType.NORMAL,
+//                            action = { _, _ ->
+//                                AppUtil.openWebsite(context, context.getString(R.string.portfolio))
+//                            }
+//                        ) {},
                         SettingItem(
                             title = context.getString(R.string.follow_X),
                             icon = R.drawable.ic_x,

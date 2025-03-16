@@ -189,7 +189,7 @@ class MainActivity : AppCompatActivity() {
                     } else {
                         Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                             Image(
-                                painter = painterResource(id = R.drawable.ic_add_task),
+                                painter = painterResource(id = R.drawable.logo_icon),
                                 contentDescription = null,
                                 modifier = Modifier.size(120.dp)
                             )

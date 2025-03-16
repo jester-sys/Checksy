@@ -8,7 +8,7 @@ import com.jaixlabs.checksy.data.model.Task
 
 @Database(
     entities = [Task::class, SubTask::class, Notification::class],
-    version = 4
+    version = 6
 )
 abstract class TaskDatabase : RoomDatabase() {
     abstract val dao: TaskDao

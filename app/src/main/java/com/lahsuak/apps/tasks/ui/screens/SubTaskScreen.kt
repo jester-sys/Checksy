@@ -230,10 +230,11 @@ fun SubTaskScreen(
         var searchQuery by rememberSaveable {
             mutableStateOf("")
         }
+        val note = stringResource(R.string.notes)
         val active = stringResource(R.string.active)
         val done = stringResource(R.string.done)
         val status = remember {
-            mutableStateListOf(active, done)
+            mutableStateListOf(note,active, done)
         }
         var isSubTaskDone by rememberSaveable {
             mutableStateOf(false)
@@ -617,7 +618,7 @@ fun SubTaskScreen(
                             }
                         ) {
                             Image(
-                                painterResource(R.drawable.ic_add_task),
+                                painterResource(R.drawable.logo_icon),
                                 contentDescription = stringResource(
                                     R.string.add_task
                                 ),

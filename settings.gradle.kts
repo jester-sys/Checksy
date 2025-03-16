@@ -13,5 +13,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "Tasks"
+rootProject.name = "checksy"
 include(":app")

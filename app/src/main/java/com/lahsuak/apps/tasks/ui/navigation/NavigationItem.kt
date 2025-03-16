@@ -12,4 +12,7 @@ sealed class NavigationItem(val route: String) {
     object Overview : NavigationItem(OVERVIEW)
     object Setting : NavigationItem(SETTING)
     object Notification : NavigationItem(NOTIFICATION)
+
+    object AddNotes : NavigationItem(NOTIFICATION)
+
 }

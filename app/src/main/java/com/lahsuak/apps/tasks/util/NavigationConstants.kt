@@ -7,6 +7,7 @@ object NavigationConstants {
         const val OVERVIEW = "overview"
         const val SETTING = "setting"
         const val NOTIFICATION = "notification"
+        const val ADD_NOTES = "add_notes"
     }
 
     object Key {

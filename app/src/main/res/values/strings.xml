@@ -43,9 +43,6 @@
     <string name="sorting_option">Sort by </string>
     <string name="sort_by_name">Sort by Name</string>
     <string name="sort_by_creation_date">Sort by Creation date</string>
-    <string name="search">Search</string>
-    <string name="select_all">Select all</string>
-    <string name="delete">Delete</string>
     <string name="add_date_time">Add date/time</string>
     <string name="reminder">Reminder</string>
     <string name="add_task_by_speak">Add task by speaking</string>
@@ -78,7 +75,6 @@
     <string name="disable">Disable</string>
 
     <string name="subtask_of_task">Show subtasks of individual task</string>
-    <string name="grid_view">Grid View</string>
     <string name="list_view">List View</string>
     <string name="theme">Theme</string>
     <string name="pm_format">pm</string>
@@ -110,6 +106,7 @@
     <string name="or">OR</string>
     <string name="select_task">Select task</string>
     <string name="active">Active</string>
+    <string name="notes" translatable="false">Notes</string>
     <string name="done">Done</string>
     <string name="home">Home</string>
     <string name="personal">Personal</string>
@@ -155,9 +152,9 @@
     <string name="show_copy">Show copy icon on individual task</string>
     <string name="visit_github">Visit GitHub</string>
     <string name="privacy_policy">Privacy policy</string>
-    <string name="portfolio" translatable="false">444</string>
+    <string name="portfolio" translatable="false">https://sites.google.com/view/checksy-contact-help/home</string>
     <string name="github_link" translatable="false">https://github.com/jester-sys</string>
-    <string name="privacy_policy_link" translatable="false">https://doc-hosting.flycricket.io/tasks-to-do-list-reminders/a4486a8e-2c2b-4ae8-8ade-59c845a8276e/privacy</string>
+    <string name="privacy_policy_link" translatable="false">https://sites.google.com/view/checksy/home</string>
 
     <string name="prompt_info_title">Task App Authentication</string>
     <string name="prompt_info_subtitle">Login with fingerprint authentication</string>
@@ -168,4 +165,171 @@
     <string name="follow_X">Follow me on the X</string>
     <string name="donate">Support me</string>
     <string name="donate_me_desc">If you like my app and want to support me in improving this app then please donate some money</string>
+
+
+
+
+
+
+
+    <string name="home_screen">Notes</string>
+    <string name="new_note">New Note</string>
+    <string name="no_created_notes">No created notes.</string>
+    <string name="no_found_notes">No notes found.</string>
+    <string name="created_time">Created Time</string>
+    <string name="grid_view">Grid view</string>
+    <string name="column_view" translatable="false">Column view</string>
+    <string name="words" translatable="false">Words</string>
+    <string name="characters" translatable="false">Characters</string>
+    <string name="description" translatable="false">Description</string>
+    <string name="select_all">Select all</string>
+    <string name="delete">Delete</string>
+    <string name="information" translatable="false">Information</string>
+    <string name="search">Search</string>
+    <string name="screen_settings" translatable="false">Settings</string>
+    <string name="display" translatable="false">Display</string>
+    <string name="system_theme" translatable="false">System Theme</string>
+    <string name="dark_theme" translatable="false">Dark Theme</string>
+    <string name="dynamic_colors" translatable="false">Dynamic Colors</string>
+    <string name="amoled_colors" translatable="false">Amoled Colors</string>
+    <string name="database" translatable="false">Database</string>
+    <string name="backup" translatable="false">Backup</string>
+    <string name="not_supported" translatable="false">Not supported yet</string>
+
+    <string name="version" translatable="false">Version</string>
+    <string name="latest_release" translatable="false">Latest Release</string>
+    <string name="start_project" translatable="false">Star Project</string>
+    <string name="donate_me" translatable="false">Donate Me :)</string>
+    <string name="restore" translatable="false">Restore</string>
+    <string name="support" translatable="false">Support</string>
+    <string name="color_styles" translatable="false"><![CDATA[Colors & Styles]]></string>
+    <string name="markdown" translatable="false">Markdown</string>
+    <string name="tools" translatable="false">Tools</string>
+    <string name="history" translatable="false">History</string>
+    <string name="widgets" translatable="false">Widgets</string>
+    <string name="description_color_styles" translatable="false">Themes • Size • Font</string>
+    <string name="cloud" translatable="false">Cloud</string>
+    <string name="description_language" translatable="false">Font • Language</string>
+    <string name="description_cloud" translatable="false">NextCloud • Local • Encryption</string>
+    <string name="description_about" translatable="false">Version • Developers • License</string>
+    <string name="description_widgets" translatable="false">Widgets • Markdown</string>
+    <string name="description_history" translatable="false">History • Revert</string>
+    <string name="description_tools" translatable="false">Created • Delete All</string>
+    <string name="description_markdown" translatable="false">Support • Images</string>
+    <string name="support_description" translatable="false">Show your love</string>
+    <string name="select_font" translatable="false">Font</string>
+    <string name="radius" translatable="false">Radius</string>
+    <string name="select_radius" translatable="false">Select Radius</string>
+    <string name="minimalistic_mode" translatable="false">Minimalistic Mode</string>
+    <string name="extreme_amoled_mode" translatable="false">Extreme Amoled Colors</string>
+    <string name="privacy" translatable="false">Privacy</string>
+    <string name="screen_protection" translatable="false">Screen Protection</string>
+    <string name="images_supprot" translatable="false">Images Support</string>
+    <string name="unstable_feature" translatable="false">Unstable</string>
+    <string name="cryptocurrency" translatable="false">Cryptocurrency</string>
+    <string name="system_theme_description" translatable="false">Adapts app theme based on system settings</string>
+    <string name="dark_theme_description" translatable="false">Toggle between dark and light color schemes</string>
+    <string name="dynamic_colors_description" translatable="false">Adjusts colors to match your wallpaper</string>
+    <string name="amoled_colors_description" translatable="false">Use black color for background</string>
+    <string name="extreme_amoled_mode_description" translatable="false">Extreme Battery optimization</string>
+    <string name="radius_description" translatable="false">Customize border radius</string>
+    <string name="view_style_description" translatable="false">Select view style</string>
+    <string name="minimalistic_mode_description" translatable="false">Remove top buttons from edit screen</string>
+    <string name="backup_description" translatable="false">Store all notes to file</string>
+    <string name="restore_description" translatable="false">Restore notes from backup file</string>
+    <string name="markdown_description" translatable="false">Enable markdown in notes</string>
+    <string name="screen_protection_description" translatable="false">Hide screen in recents and disable screenshots</string>
+    <string name="build_type" translatable="false">Build Type</string>
+    <string name="source_code" translatable="false">Source Code</string>
+    <string name="support_list" translatable="false">Supporters List</string>
+    <string name="email" translatable="false">Email</string>
+    <string name="discord" translatable="false">Discord</string>
+    <string name="feature" translatable="false">Feature Request</string>
+    <string name="pinned" translatable="false">Pinned</string>
+    <string name="others" translatable="false">Others</string>
+    <string name="copy" translatable="false">Copy</string>
+    <string name="encrypt_databse" translatable="false">Encrypt Database</string>
+    <string name="encrypt_databse_description" translatable="false">Encrypt database during backup</string>
+    <string name="password_prompt" translatable="false">Enter password</string>
+    <string name="detabase_restore_error" translatable="false">Password is invalid or the database isn\'t encrypted</string>
+    <string name="invalid_input" translatable="false">Invalid input</string>
+    <string name="sort_ascending" translatable="false">Sort Ascending</string>
+    <string name="sort_descending" translatable="false">Sort Descending</string>
+    <string name="sort_description" translatable="false">Sort notes by their creation time</string>
+    <string name="select_note" translatable="false">Select Note</string>
+    <string name="unsuported_image_size" translatable="false">Unsupported Image Size (15mb max)</string>
+    <string name="vault" translatable="false">Vault</string>
+    <string name="vault_description" translatable="false">Enable encrypted notes vault</string>
+    <string name="password_continue" translatable="false">continue</string>
+    <string name="language_description" translatable="false">Change the app language</string>
+    <string name="system_language" translatable="false" >System Language</string>
+    <string name="Behavior" translatable="false" >Behavior</string>
+    <string name="always_edit" translatable="false">Prioritize Editing Mode</string>
+    <string name="always_edit_description" translatable="false">Enter edit mode on existing notes</string>
+    <string name="invalid_password" translatable="false">Invalid Password</string>
+    <string name="donators" translatable="false">Donate</string>
+    <string name="translators" translatable="false">Translation</string>
+    <string name="contributors" translatable="false">Contribution</string>
+    <string name="gallery_sync_description" translatable="false">Deletes images from app storage when they are removed from the gallery</string>
+    <string name="gallery_sync" translatable="false">Gallery Sync</string>
+    <string name="show_only_title" translatable="false">Show only title</string>
+    <string name="show_only_title_description" translatable="false">Show only the title in preview</string>
+
+    <string name="terms_acceptance_title" translatable="false">1. Acceptance of Terms</string>
+    <string name="terms_acceptance_body" translatable="false" >By pressing "Agree" and using Easy Notes, you accept these Terms of Service. If you do not agree, do not use the application.</string>
+    <string name="terms_license_title" translatable="false">2. License</string>
+    <string name="terms_license_body" translatable="false">Easy Notes is distributed under the **GNU General Public License (GPL) version 3**. This means:\n\n- You are free to use, modify, and share the application.\n- If you distribute the application or any modified versions, you must also distribute the source code and retain the GPL license.</string>
+    <string name="terms_use_title" translatable="false">3. Use of the Application</string>
+    <string name="terms_use_body" translatable="false">You agree to use Easy Notes only for lawful purposes and in accordance with these Terms. You must **not**:\n\n- _Use the app for any unlawful purpose_\n- _Violate the rights of others_\n- _Disrupt the functionality or security of the app_</string>
+    <string name="terms_intellectual_property_title" translatable="false">4. Intellectual Property</string>
+    <string name="terms_intellectual_property_body" translatable="false">All intellectual property rights in Easy Notes are owned by us or our licensors. Your use of the app does not grant you ownership of any intellectual property rights.</string>
+    <string name="terms_disclaimer_title" translatable="false">5. Disclaimer of Warranties</string>
+    <string name="terms_disclaimer_body" translatable="false">Easy Notes is provided "as is," without any warranties. We do not guarantee that the app will be free from errors, secure, or uninterrupted.</string>
+    <string name="terms_liability_title" translatable="false">6. Limitation of Liability</string>
+
+    <string name="terms_liability_body" translatable="false">We are not liable for any damages resulting from your use of Easy Notes, including indirect, incidental, or consequential damages.</string>
+    <string name="terms_termination_title" translatable="false">7. Termination</string>
+    <string name="terms_termination_body" translatable="false">We may terminate or suspend your access to Easy Notes if you breach these Terms. Upon termination, your right to use the app will end immediately.</string>
+    <string name="terms_changes_title" translatable="false">8. Changes to Terms</string>
+    <string name="terms_changes_body" translatable="false">We may update these Terms of Service from time to time. Your continued use of Easy Notes after any changes constitutes acceptance of the revised terms.</string>
+    <string name="terms_contact_title" translatable="false">9. Contact Us</string>
+    <string name="terms_contact_body" translatable="false">For any questions about these Terms of Service or Easy Notes, please contact us at</string>
+    <string name="terms_privacy_title" translatable="false">10. Privacy Policy</string>
+    <string name="terms_privacy_body" translatable="false">Easy Notes does not collect any personal data. For more information, please refer to our Privacy Policy available at</string>
+    <string name="terms_effective_date" translatable="false">Effective Date</string>
+    <string name="agree" translatable="false">Agree</string>
+    <string name="terms_of_service" translatable="false">Terms of service</string>
+    <string name="file_import_error" translatable="false">Couldn\'t import</string>
+    <string name="file_import_partial_error" translatable="false">Import of some files failed</string>
+    <string name="file_import_success" translatable="false">Successfully imported</string>
+    <string name="file_import_title" translatable="false">Import</string>
+    <string name="file_import_description" translatable="false">Import other text files as notes</string>
+    <string name="monospace_font_description" translatable="false">Use monospace font while editing note</string>
+    <string name="monospace_font" translatable="false">Monospace font</string>
+    <string name="alert_text" translatable="false"> Are you sure you want to delete the selected notes</string>
+    <string name="yes" translatable="false"> Yes</string>
+    <string name="app_lock_description" translatable="false">Lock app using password</string>
+    <string name="setup_password" translatable="false">Setup passcode</string>
+    <string name="enter_password" translatable="false">Enter Passcode</string>
+    <string name="pin" translatable="false">Pin (6 numbers)</string>
+    <string name="passcode" translatable="false">Passcode</string>
+    <string name="fingerprint" translatable="false">Fingerprint</string>
+    <string name="fingerprint_name" translatable="false">Authentication required</string>
+    <string name="locked" translatable="false">is Locked</string>
+    <string name="uid" translatable="false">UID</string>
+    <string name="authorize_fingerprint" translatable="false">Ask for fingerprint on start</string>
+    <string name="authorize_passcode" translatable="false">Ask for passcode on start</string>
+    <string name="pattern" translatable="false">Pattern</string>
+    <string name="authorize_pattern" translatable="false">Ask for pattern on start</string>
+    <string name="setup_pattern" translatable="false">Settup pattern</string>
+    <string name="lock_pattern" translatable="false">Enter pattern</string>
+    <string name="lock_on_resume" translatable="false">Lock Immediately</string>
+    <string name="lock_on_resume_description" translatable="false">Lock instantly when app is resumed</string>
+    <string name="disable_swipe_edit" translatable="false">Disable swipe</string>
+    <string name="disable_swipe_edit_description" translatable="false">"Disable swiping to preview in edit mode "</string>
+    <string name="make_search_bar_longer" translatable="false">Scale Search Bar Width</string>
+    <string name="make_search_bar_longer_description" translatable="false">Make search bar match width of notes</string>
+    <string name="add_note">Add Note</string>
+
+
 </resources>

@@ -1,5 +1,7 @@
 package com.jaixlabs.checksy.ui.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
@@ -25,7 +27,9 @@ import com.jaixlabs.checksy.util.NavigationConstants.Key.SUBTASK_DEEP_LINK
 import com.jaixlabs.checksy.util.NavigationConstants.Key.TASK_ID
 import com.jaixlabs.checksy.util.WindowSize
 import com.jaixlabs.checksy.util.preference.SettingPreferences
+import com.lahsuak.apps.Notes.note_app.screens.NoteScreen
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun TaskNavHost(
     taskViewModel: TaskViewModel,
@@ -116,6 +120,10 @@ fun TaskNavHost(
         }
         composable(NavigationItem.Notification.route) {
             NotificationScreen(notificationViewModel, navController)
+        }
+
+        composable(NavigationItem.AddNotes.route) {
+            NoteScreen( navController)
         }
     }
 }

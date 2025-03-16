@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
+    id("kotlin-parcelize")
 }
 
 android {
@@ -13,7 +14,7 @@ android {
         applicationId = "com.jaixlabs.checksy"
         minSdk = 21
         targetSdk = 34
-        versionCode = 27
+        versionCode = 29
         versionName = "1.0.5"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -103,4 +104,12 @@ dependencies {
     implementation(libs.android.play.core)
     //review
     debugImplementation(libs.leak.canery)
+    implementation ("androidx.compose.material:material-icons-extended:1.5.4")
+    //coil image library
+    implementation("io.coil-kt:coil-compose:2.4.0")
+    implementation ("org.jetbrains.kotlin:kotlin-parcelize-runtime:1.8.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
+
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7") // ✅ Required for hiltViewModel()
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 }

@@ -1,11 +1,13 @@
 package com.jaixlabs.checksy.ui.screens
 
 import android.app.Activity
+import android.os.Build
 import android.speech.RecognizerIntent
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
@@ -25,14 +27,18 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
 import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
 import androidx.compose.foundation.selection.toggleable
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
 import androidx.compose.material.ExperimentalMaterialApi
 //noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.ModalBottomSheetLayout
@@ -95,7 +101,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.note_app.components.NoteRow
+import com.example.note_app.model.Note
+import com.example.note_app.navigation.NoteScreenNavigation
+import com.example.note_app.viewModel.NoteViewModel
 import com.jaixlabs.checksy.R
 import com.jaixlabs.checksy.data.model.Task
 import com.jaixlabs.checksy.model.SortOrder
@@ -116,7 +128,9 @@ import com.jaixlabs.checksy.util.preference.FilterPreferences
 import com.jaixlabs.checksy.util.preference.SettingPreferences
 import kotlinx.coroutines.launch
 import kotlin.random.Random
+import androidx.compose.foundation.lazy.LazyColumn as LazyColumn1
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(
     ExperimentalMaterial3Api::class,
     ExperimentalFoundationApi::class,
@@ -141,12 +155,16 @@ fun TaskScreen(
     )
     val showVoiceTask = settingsPreferences.showVoiceIcon
 
+
     var taskId: String? by rememberSaveable {
         mutableStateOf(null)
     }
     var isNewTask by rememberSaveable {
         mutableStateOf(true)
     }
+    // ✅ Pehle ViewModel Declare Karo
+    val noteViewModel: NoteViewModel = hiltViewModel()
+    val noteList: List<Note>? =noteViewModel?.noteList?.collectAsState()?.value
 
     var isBottomSheetOpened by rememberSaveable {
         mutableStateOf(false)
@@ -155,14 +173,18 @@ fun TaskScreen(
     var searchQuery by rememberSaveable {
         mutableStateOf("")
     }
+    val notes = stringResource(R.string.notes)
     val active = stringResource(R.string.active)
     val done = stringResource(R.string.done)
     val status = remember {
-        mutableStateListOf(active, done)
+        mutableStateListOf(notes,active, done)
     }
     var isTaskDone by rememberSaveable {
         mutableStateOf(false)
     }
+    var isNotes by rememberSaveable { mutableStateOf(false) }
+
+
     val speakLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result: ActivityResult ->
@@ -209,6 +231,8 @@ fun TaskScreen(
     var isSnackBarShow by rememberSaveable {
         mutableStateOf(false)
     }
+    var isNoteScreenVisible by remember { mutableStateOf(false) }
+
     var openDeleteDialog by remember { mutableStateOf(false) }
     val undoMsg = stringResource(R.string.undo)
     val snackBarMsg = stringResource(R.string.task_deleted)
@@ -362,6 +386,9 @@ fun TaskScreen(
             derivedStateOf { lazyGridListState.firstVisibleItemIndex != 0 }
         }
 
+
+
+
         Scaffold(
             topBar = {
                 if (actionMode) {
@@ -414,7 +441,6 @@ fun TaskScreen(
                                     )
                                 }
                                 IconButton(onClick = {
-                                    // delete selected items
                                     selectedItems.map {
                                         taskViewModel.delete(it)
                                     }
@@ -460,6 +486,7 @@ fun TaskScreen(
                     )
                 }
             },
+            
             floatingActionButtonPosition = FabPosition.Center,
             floatingActionButton = {
                 if (!actionMode) {
@@ -468,12 +495,12 @@ fun TaskScreen(
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp),
                         horizontalArrangement =
-                        if (isTaskDone)
+                        if (isTaskDone || isNotes) 
                             Arrangement.Center
                         else
                             Arrangement.SpaceBetween,
                     ) {
-                        AnimatedVisibility(visible = showVoiceTask && !isTaskDone) {
+                        AnimatedVisibility(visible = showVoiceTask && !isTaskDone && !isNotes) {
                             FloatingActionButton(
                                 containerColor = MaterialTheme.colorScheme.primary,
                                 onClick = {
@@ -485,6 +512,30 @@ fun TaskScreen(
                                 )
                             }
                         }
+
+                        // ✅ Notes Mode Me "Add Note" Button Show Karna
+                        AnimatedVisibility(visible = isNotes) {
+                            FloatingActionButton(
+                                containerColor = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier
+                                    .padding(3.dp)
+                                    .size(60.dp),
+                                shape = CircleShape,
+                                onClick = {
+//                                    navController?.currentBackStackEntry?.savedStateHandle?.set(key="note_obj", value = null)
+//                                    navController?.navigate("NoteScreen")
+                                    navController.navigate(NavigationItem.AddNotes.route)
+                                  isNoteScreenVisible = true
+                                },
+                            ) {
+                                Icon(
+                                    painterResource(R.drawable.ic_create), // ✅ Notes ke liye Add Icon
+                                    contentDescription = stringResource(R.string.add_note) // ✅ Add Task ki jagah Add Note Text
+                                )
+                            }
+                        }
+
+                        // ✅ Completed Tasks Delete Button
                         AnimatedVisibility(visible = isTaskDone) {
                             FloatingActionButton(
                                 containerColor = MaterialTheme.colorScheme.error,
@@ -498,8 +549,14 @@ fun TaskScreen(
                                     stringResource(R.string.delete_task)
                                 )
                             }
+                            // ✅ Jab `isNoteScreenVisible` true ho, tab Notes Screen Show Karo
+                            if (isNoteScreenVisible) {
+                                NoteScreenNavigation(context, noteViewModel)
+                            }
                         }
-                        AnimatedVisibility(visible = !isTaskDone) {
+
+                        // ✅ Notes aur Completed ke alawa Add Task Button Show Karna
+                        AnimatedVisibility(visible = !isTaskDone && !isNotes) {
                             if (isFabExtended) {
                                 ExtendedFloatingActionButton(
                                     containerColor = MaterialTheme.colorScheme.primary,
@@ -533,6 +590,7 @@ fun TaskScreen(
                                             sheetState.show()
                                         }
                                     }) {
+                                    
                                     Icon(
                                         painterResource(R.drawable.ic_create),
                                         stringResource(R.string.add_task)
@@ -542,7 +600,11 @@ fun TaskScreen(
                         }
                     }
                 }
-            },
+
+
+
+
+    },
             snackbarHost = {
                 SnackbarHost(snackBarHostState)
             }
@@ -600,6 +662,9 @@ fun TaskScreen(
                     }
                 ),
             ) {
+                // Set selected status index dynamically
+                val selectedStatusIndex = if (isTaskDone) 2 else if (isNotes) 0 else 1
+
                 item(span = StaggeredGridItemSpan.FullLine) {
                     AnimatedVisibility(!actionMode) {
                         HeaderContent(
@@ -615,11 +680,28 @@ fun TaskScreen(
                                 isListViewEnable = it
                                 taskViewModel.onViewTypeChanged(it, context)
                             },
-                            onStatusChange = {
-                                isTaskDone = it
+                            onStatusChange = { index: Int ->
+                                when (index) {
+                                    0 -> { // ✅ Notes Selected
+                                        isNotes = true
+                                        isTaskDone = false
+                                        isNoteScreenVisible = true
+
+                                    }
+                                    1 -> { // ✅ Active Selected
+                                        isNotes = false
+                                        isTaskDone = false
+                                        isNoteScreenVisible = false
+                                    }
+                                    2 -> { // ✅ Done Selected
+                                        isNotes = false
+                                        isTaskDone = true
+                                        isNoteScreenVisible = false
+                                    }
+                                }
                             },
                             status = status,
-                            selectedStatusIndex = if (isTaskDone) 1 else 0,
+                            selectedStatusIndex = selectedStatusIndex,
                             sortTypes = sortTypes,
                             selectedSort = selectedSort,
                             onSortChange = { index ->
@@ -637,92 +719,127 @@ fun TaskScreen(
                         )
                     }
                 }
+
+
                 items(
-                    tasks.filter { t -> isTaskDone == t.isDone }
-                        .sortedByDescending { t -> t.isImp },
-                    key = { t ->
-                        t.id + Random.nextInt()
-                    }
+                    tasks.filter { t ->
+                        when {
+                            isTaskDone -> t.isDone // ✅ Done wale tasks show honge
+                            isNotes -> !t.isDone && (t.category ?: "") == "Notes" // ✅ Sirf Notes wale show honge
+                            else -> !t.isDone // ✅ Active wale tasks show honge
+                        }
+                    }.sortedByDescending { t -> t.isImp },
+                    key = { t -> t.id + Random.nextInt() }
                 ) { task ->
-                    val isSelected = selectedItems.contains(task)
-                    Row(
+                    // Ye wahi TaskItem hai jo tum use kar rahe ho
+                    TaskItem(
                         Modifier
-                            .animateItemPlacement()
-                            .padding(4.dp)
-                    ) {
-                        TaskItem(
-                            Modifier
-                                .combinedClickable(
-                                    onClick = {
-                                        if (actionMode) {
-                                            if (isSelected)
-                                                selectedItems.remove(task)
-                                            else
-                                                selectedItems.add(task)
-                                        } else {
-                                            taskViewModel.setTask(task)
-                                            navController.navigate("${NavigationItem.SubTask.route}/${task.id}/false")
-                                        }
-                                    },
-                                    onLongClick = {
-                                        if (actionMode) {
-                                            if (isSelected)
-                                                selectedItems.remove(task)
-                                            else
-                                                selectedItems.add(task)
-                                        } else {
-                                            actionMode = true
+                            .combinedClickable(
+                                onClick = {
+                                    if (actionMode) {
+                                        if (selectedItems.contains(task))
+                                            selectedItems.remove(task)
+                                        else
                                             selectedItems.add(task)
-                                        }
-                                    },
-                                )
-                                .border(
-                                    if (isSelected) 2.dp else (-1).dp,
-                                    color = MaterialTheme.colorScheme.primary,
-                                    RoundedCornerShape(8.dp)
-                                ),
-                            task = task,
-                            settingPreferences = settingsPreferences,
-                            isListViewEnable = isListViewEnable,
-                            onImpSwipe = { isImp ->
-                                taskViewModel.update(task.copy(isImp = isImp))
-                            },
-                            onCancelReminder = {
-                                if (!actionMode) {
-                                    taskViewModel.update(task.copy(reminder = null))
-                                }
-                            },
-                            onCompletedTask = { isCompleted ->
-                                if (!actionMode) {
-                                    taskViewModel.onTaskCheckedChanged(task, isCompleted)
-                                }
-                            }
-                        ) { isDone ->
-                            if (!actionMode) {
-                                if (isDone) {
-                                    taskViewModel.onTaskSwiped(task)
-                                    isSnackBarShow = true
-                                } else {
-                                    taskViewModel.setTask(task)
-                                    taskId = task.id.toString()
-                                    isNewTask = false
-                                    scope.launch {
-                                        isBottomSheetOpened = true
-                                        sheetState.show()
+                                    } else {
+                                        taskViewModel.setTask(task)
+                                        navController.navigate("${NavigationItem.SubTask.route}/${task.id}/false")
                                     }
+                                },
+                                onLongClick = {
+                                    if (actionMode) {
+                                        if (selectedItems.contains(task))
+                                            selectedItems.remove(task)
+                                        else
+                                            selectedItems.add(task)
+                                    } else {
+                                        actionMode = true
+                                        selectedItems.add(task)
+                                    }
+                                },
+                            )
+                            .border(
+                                if (selectedItems.contains(task)) 2.dp else (-1).dp,
+                                color = MaterialTheme.colorScheme.primary,
+                                RoundedCornerShape(8.dp)
+                            ),
+                        task = task,
+                        settingPreferences = settingsPreferences,
+                        isListViewEnable = isListViewEnable,
+                        onImpSwipe = { isImp ->
+                            taskViewModel.update(task.copy(isImp = isImp))
+                        },
+                        onCancelReminder = {
+                            if (!actionMode) {
+                                taskViewModel.update(task.copy(reminder = null))
+                            }
+                        },
+                        onCompletedTask = { isCompleted ->
+                            if (!actionMode) {
+                                taskViewModel.onTaskCheckedChanged(task, isCompleted)
+                            }
+                        }
+                    ) { isDone ->
+                        if (!actionMode) {
+                            if (isDone) {
+                                taskViewModel.onTaskSwiped(task)
+                                isSnackBarShow = true
+                            } else {
+                                taskViewModel.setTask(task)
+                                taskId = task.id.toString()
+                                isNewTask = false
+                                scope.launch {
+                                    isBottomSheetOpened = true
+                                    sheetState.show()
                                 }
                             }
                         }
                     }
-                    Spacer(Modifier.height(8.dp))
                 }
+
                 item(span = StaggeredGridItemSpan.FullLine) {
-                    Row(Modifier.fillMaxWidth().height(60.dp)){}
+                    Row(
+                        Modifier
+                            .fillMaxWidth()
+                            .height(60.dp)){}
+                }
+
+
+                }
+            if(isNoteScreenVisible){
+                if(noteList!=null){
+                    Box {
+                        LazyColumn1 {
+                            items(items = noteList.reversed()) {
+                                NoteRow(
+                                    note = it,
+                                    context = context,
+                                    noteViewModel = noteViewModel,
+                                    onNoteClick = {
+                                        navController?.currentBackStackEntry?.savedStateHandle?.set(
+                                            key = "note_obj",
+                                            value = it
+                                        )
+                                        navController?.navigate("NoteScreen")
+                                    })
+                            }
+                        }
+                    }
                 }
             }
+
+            }
+
+
+
+
         }
+
+
     }
-}
+
+
+
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
@@ -733,7 +850,7 @@ fun HeaderContent(
     onQueryChange: (String) -> Unit,
     isListViewEnable: Boolean,
     onViewChange: (Boolean) -> Unit,
-    onStatusChange: (Boolean) -> Unit,
+    onStatusChange: (Int) -> Unit,
     status: List<String>,
     selectedStatusIndex: Int,
     sortTypes: List<String>,
@@ -853,8 +970,9 @@ fun HeaderContent(
                 items = status,
                 selectedIndex = selectedStatusIndex
             ) { index ->
-                onStatusChange(index != 0)
+                onStatusChange(index)
             }
+
             IconButton(onClick = {
                 onViewChange(!isListViewEnable)
             }) {
@@ -870,3 +988,4 @@ fun HeaderContent(
         }
     }
 }
+
