@@ -3,6 +3,7 @@ package com.jaixlabs.checksy.ui.screens
 import android.app.Activity
 import android.os.Build
 import android.speech.RecognizerIntent
+import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResult
@@ -142,6 +143,7 @@ fun TaskScreen(
     taskViewModel: TaskViewModel,
     settingsPreferences: SettingPreferences,
     windowSize: WindowSize,
+    noteViewModel: NoteViewModel?=null
 ) {
     var sharedText by rememberSaveable {
         mutableStateOf(MainActivity.shareTxt)
@@ -162,9 +164,9 @@ fun TaskScreen(
     var isNewTask by rememberSaveable {
         mutableStateOf(true)
     }
-    // ✅ Pehle ViewModel Declare Karo
-    val noteViewModel: NoteViewModel = hiltViewModel()
-    val noteList: List<Note>? =noteViewModel?.noteList?.collectAsState()?.value
+    val noteList = noteViewModel?.noteList?.collectAsState()?.value ?: emptyList()
+
+
 
     var isBottomSheetOpened by rememberSaveable {
         mutableStateOf(false)
@@ -271,7 +273,6 @@ fun TaskScreen(
                 }
             }
         }
-
         TaskEvent.NavigateToAllCompletedScreen -> {
             if (openDeleteDialog) {
                 AlertDialog(
@@ -518,21 +519,21 @@ fun TaskScreen(
                             FloatingActionButton(
                                 containerColor = MaterialTheme.colorScheme.primary,
                                 modifier = Modifier
-                                    .padding(3.dp)
-                                    .size(60.dp),
+                                    .padding(16.dp) // ✅ Proper padding
+                                    .size(60.dp), // ✅ Right Bottom Position
                                 shape = CircleShape,
                                 onClick = {
-//                                    navController?.currentBackStackEntry?.savedStateHandle?.set(key="note_obj", value = null)
-//                                    navController?.navigate("NoteScreen")
+                                    navController?.currentBackStackEntry?.savedStateHandle?.set("note_obj", null)
                                     navController.navigate(NavigationItem.AddNotes.route)
-                                  isNoteScreenVisible = true
+                                    isNoteScreenVisible = true
                                 },
                             ) {
                                 Icon(
-                                    painterResource(R.drawable.ic_create), // ✅ Notes ke liye Add Icon
-                                    contentDescription = stringResource(R.string.add_note) // ✅ Add Task ki jagah Add Note Text
+                                    painterResource(R.drawable.ic_create),
+                                    contentDescription = stringResource(R.string.add_note)
                                 )
                             }
+
                         }
 
                         // ✅ Completed Tasks Delete Button
@@ -551,7 +552,9 @@ fun TaskScreen(
                             }
                             // ✅ Jab `isNoteScreenVisible` true ho, tab Notes Screen Show Karo
                             if (isNoteScreenVisible) {
-                                NoteScreenNavigation(context, noteViewModel)
+                                if (noteViewModel != null) {
+                                    NoteScreenNavigation(context, noteViewModel)
+                                }
                             }
                         }
 
@@ -590,7 +593,7 @@ fun TaskScreen(
                                             sheetState.show()
                                         }
                                     }) {
-                                    
+
                                     Icon(
                                         painterResource(R.drawable.ic_create),
                                         stringResource(R.string.add_task)
@@ -609,35 +612,40 @@ fun TaskScreen(
                 SnackbarHost(snackBarHostState)
             }
         ) { paddingValue ->
-            if (tasks.isEmpty()) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(paddingValue),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center,
-                        modifier = Modifier.clickable {
-                            taskId = null
-                            isNewTask = true
-                            isBottomSheetOpened = true
-                            scope.launch {
-                                sheetState.show()
-                            }
-                        }
+            if(isNoteScreenVisible== false) {
+                if (tasks.isEmpty()) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(paddingValue),
+                        contentAlignment = Alignment.Center
                     ) {
-                        Image(
-                            painterResource(R.drawable.logo_icon),
-                            stringResource(
-                                R.string.add_task
-                            ),
-                            modifier = Modifier,
-                            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
-                        )
-                        Spacer(modifier = Modifier.height(4.dp))
-                        Text(stringResource(R.string.create_new_task), textAlign = TextAlign.Center)
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center,
+                            modifier = Modifier.clickable {
+                                taskId = null
+                                isNewTask = true
+                                isBottomSheetOpened = true
+                                scope.launch {
+                                    sheetState.show()
+                                }
+                            }
+                        ) {
+                            Image(
+                                painterResource(R.drawable.logo_icon),
+                                stringResource(
+                                    R.string.add_task
+                                ),
+                                modifier = Modifier,
+                                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
+                            )
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text(
+                                stringResource(R.string.create_new_task),
+                                textAlign = TextAlign.Center
+                            )
+                        }
                     }
                 }
             }
@@ -662,9 +670,7 @@ fun TaskScreen(
                     }
                 ),
             ) {
-                // Set selected status index dynamically
-                val selectedStatusIndex = if (isTaskDone) 2 else if (isNotes) 0 else 1
-
+                // ✅ Status Selection aur HeaderContent
                 item(span = StaggeredGridItemSpan.FullLine) {
                     AnimatedVisibility(!actionMode) {
                         HeaderContent(
@@ -686,7 +692,6 @@ fun TaskScreen(
                                         isNotes = true
                                         isTaskDone = false
                                         isNoteScreenVisible = true
-
                                     }
                                     1 -> { // ✅ Active Selected
                                         isNotes = false
@@ -701,7 +706,7 @@ fun TaskScreen(
                                 }
                             },
                             status = status,
-                            selectedStatusIndex = selectedStatusIndex,
+                            selectedStatusIndex = if (isTaskDone) 2 else if (isNotes) 0 else 1,
                             sortTypes = sortTypes,
                             selectedSort = selectedSort,
                             onSortChange = { index ->
@@ -720,115 +725,155 @@ fun TaskScreen(
                     }
                 }
 
+                // ✅ Notes ka StaggeredGrid (Jaise Active aur Done ka hai)
+                if (isNotes) {
+                    if (noteList.isEmpty()) {
+                        // ✅ Notes empty hai to Add Notes ka message dikhao
+                        item(span = StaggeredGridItemSpan.FullLine) {
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(paddingValue),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Column(
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.Center,
+                                    modifier = Modifier.clickable {
+                                        navController?.currentBackStackEntry?.savedStateHandle?.set(
+                                            key = "note_obj",
+                                            value = null
+                                        )
+                                        navController?.navigate("NoteScreen")
+                                    }
+                                ) {
+                                    Image(
+                                        painterResource(R.drawable.logo_icon),
+                                        stringResource(R.string.add_note),
+                                        modifier = Modifier,
+                                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
+                                    )
+                                    Spacer(modifier = Modifier.height(4.dp))
+                                    Text(stringResource(R.string.create_new_note), textAlign = TextAlign.Center)
+                                }
+                            }
+                        }
+                    } else {
 
-                items(
-                    tasks.filter { t ->
-                        when {
-                            isTaskDone -> t.isDone // ✅ Done wale tasks show honge
-                            isNotes -> !t.isDone && (t.category ?: "") == "Notes" // ✅ Sirf Notes wale show honge
-                            else -> !t.isDone // ✅ Active wale tasks show honge
-                        }
-                    }.sortedByDescending { t -> t.isImp },
-                    key = { t -> t.id + Random.nextInt() }
-                ) { task ->
-                    // Ye wahi TaskItem hai jo tum use kar rahe ho
-                    TaskItem(
-                        Modifier
-                            .combinedClickable(
-                                onClick = {
-                                    if (actionMode) {
-                                        if (selectedItems.contains(task))
-                                            selectedItems.remove(task)
-                                        else
-                                            selectedItems.add(task)
-                                    } else {
-                                        taskViewModel.setTask(task)
-                                        navController.navigate("${NavigationItem.SubTask.route}/${task.id}/false")
-                                    }
+                        items(noteList.reversed()) { note ->
+                            NoteRow(
+                                note = note,
+                                noteViewModel = noteViewModel,
+                                onNoteClick = {
+                                    navController?.currentBackStackEntry?.savedStateHandle?.set(
+                                        key = "note_obj",
+                                        value = note
+                                    )
+                                    navController?.navigate("NoteScreen") // ✅ Open Note Screen
                                 },
-                                onLongClick = {
-                                    if (actionMode) {
-                                        if (selectedItems.contains(task))
-                                            selectedItems.remove(task)
-                                        else
-                                            selectedItems.add(task)
-                                    } else {
-                                        actionMode = true
-                                        selectedItems.add(task)
-                                    }
+                                onDeleteNote = {
+                                    noteViewModel?.deleteNote(note.id) // ✅ Delete Note from DB
                                 },
+                                onEditNote = {
+                                    navController?.currentBackStackEntry?.savedStateHandle?.set(
+                                        key = "note_obj",
+                                        value = note
+                                    )
+                                    navController?.navigate("NoteScreen") // ✅ Navigate to Edit Screen
+                                },
+                                onLockNote = { isLocked, password ->
+                                    noteViewModel?.updateNoteLockStatus(note.id, isLocked, password) // ✅ Update Lock Status in DB
+                                }
                             )
-                            .border(
-                                if (selectedItems.contains(task)) 2.dp else (-1).dp,
-                                color = MaterialTheme.colorScheme.primary,
-                                RoundedCornerShape(8.dp)
-                            ),
-                        task = task,
-                        settingPreferences = settingsPreferences,
-                        isListViewEnable = isListViewEnable,
-                        onImpSwipe = { isImp ->
-                            taskViewModel.update(task.copy(isImp = isImp))
-                        },
-                        onCancelReminder = {
-                            if (!actionMode) {
-                                taskViewModel.update(task.copy(reminder = null))
-                            }
-                        },
-                        onCompletedTask = { isCompleted ->
-                            if (!actionMode) {
-                                taskViewModel.onTaskCheckedChanged(task, isCompleted)
-                            }
                         }
-                    ) { isDone ->
-                        if (!actionMode) {
-                            if (isDone) {
-                                taskViewModel.onTaskSwiped(task)
-                                isSnackBarShow = true
-                            } else {
-                                taskViewModel.setTask(task)
-                                taskId = task.id.toString()
-                                isNewTask = false
-                                scope.launch {
-                                    isBottomSheetOpened = true
-                                    sheetState.show()
+
+
+
+                    }
+                }
+                // ✅ Active aur Done ka StaggeredGrid
+                else {
+                    items(
+                        tasks.filter { t ->
+                            when {
+                                isTaskDone -> t.isDone // ✅ Done wale tasks show honge
+                                isNotes -> !t.isDone && (t.category ?: "") == "Notes" // ✅ Notes wale show honge
+                                else -> !t.isDone // ✅ Active wale tasks show honge
+                            }
+                        }.sortedByDescending { t -> t.isImp },
+                        key = { t -> t.id + Random.nextInt() }
+                    ) { task ->
+                        TaskItem(
+                            Modifier
+                                .combinedClickable(
+                                    onClick = {
+                                        if (actionMode) {
+                                            if (selectedItems.contains(task))
+                                                selectedItems.remove(task)
+                                            else
+                                                selectedItems.add(task)
+                                        } else {
+                                            taskViewModel.setTask(task)
+                                            navController.navigate("${NavigationItem.SubTask.route}/${task.id}/false")
+                                        }
+                                    },
+                                    onLongClick = {
+                                        if (actionMode) {
+                                            if (selectedItems.contains(task))
+                                                selectedItems.remove(task)
+                                            else
+                                                selectedItems.add(task)
+                                        } else {
+                                            actionMode = true
+                                            selectedItems.add(task)
+                                        }
+                                    },
+                                )
+                                .border(
+                                    if (selectedItems.contains(task)) 2.dp else (-1).dp,
+                                    color = MaterialTheme.colorScheme.primary,
+                                    RoundedCornerShape(8.dp)
+                                ),
+                            task = task,
+                            settingPreferences = settingsPreferences,
+                            isListViewEnable = isListViewEnable,
+                            onImpSwipe = { isImp ->
+                                taskViewModel.update(task.copy(isImp = isImp))
+                            },
+                            onCancelReminder = {
+                                if (!actionMode) {
+                                    taskViewModel.update(task.copy(reminder = null))
+                                }
+                            },
+                            onCompletedTask = { isCompleted ->
+                                if (!actionMode) {
+                                    taskViewModel.onTaskCheckedChanged(task, isCompleted)
+                                }
+                            }
+                        ) { isDone ->
+                            if (!actionMode) {
+                                if (isDone) {
+                                    taskViewModel.onTaskSwiped(task)
+                                    isSnackBarShow = true
+                                } else {
+                                    taskViewModel.setTask(task)
+                                    taskId = task.id.toString()
+                                    isNewTask = false
+                                    scope.launch {
+                                        isBottomSheetOpened = true
+                                        sheetState.show()
+                                    }
                                 }
                             }
                         }
                     }
                 }
-
-                item(span = StaggeredGridItemSpan.FullLine) {
-                    Row(
-                        Modifier
-                            .fillMaxWidth()
-                            .height(60.dp)){}
-                }
-
-
-                }
-            if(isNoteScreenVisible){
-                if(noteList!=null){
-                    Box {
-                        LazyColumn1 {
-                            items(items = noteList.reversed()) {
-                                NoteRow(
-                                    note = it,
-                                    context = context,
-                                    noteViewModel = noteViewModel,
-                                    onNoteClick = {
-                                        navController?.currentBackStackEntry?.savedStateHandle?.set(
-                                            key = "note_obj",
-                                            value = it
-                                        )
-                                        navController?.navigate("NoteScreen")
-                                    })
-                            }
-                        }
-                    }
-                }
             }
 
-            }
+
+
+
+        }
 
 
 

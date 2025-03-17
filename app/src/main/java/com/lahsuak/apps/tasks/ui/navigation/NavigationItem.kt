@@ -1,5 +1,6 @@
 package com.jaixlabs.checksy.ui.navigation
 
+import com.jaixlabs.checksy.util.NavigationConstants.Screen.ADD_NOTES
 import com.jaixlabs.checksy.util.NavigationConstants.Screen.NOTIFICATION
 import com.jaixlabs.checksy.util.NavigationConstants.Screen.OVERVIEW
 import com.jaixlabs.checksy.util.NavigationConstants.Screen.SETTING
@@ -13,6 +14,6 @@ sealed class NavigationItem(val route: String) {
     object Setting : NavigationItem(SETTING)
     object Notification : NavigationItem(NOTIFICATION)
 
-    object AddNotes : NavigationItem(NOTIFICATION)
+    object AddNotes : NavigationItem(ADD_NOTES)
 
 }

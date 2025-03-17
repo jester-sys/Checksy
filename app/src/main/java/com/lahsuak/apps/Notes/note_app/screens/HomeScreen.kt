@@ -67,14 +67,14 @@ fun HomeScreen(navController: NavController? = null,context: Context,noteViewMod
             Card(Modifier.padding(it)) {
                 val noteList: List<Note>? =noteViewModel?.noteList?.collectAsState()?.value
                 if(noteList!=null){
-                    LazyColumn{
-                        items(items=noteList.reversed()){
-                            NoteRow(note = it, context =context ,noteViewModel=noteViewModel, onNoteClick ={
-                                navController?.currentBackStackEntry?.savedStateHandle?.set(key="note_obj", value = it)
-                                navController?.navigate("NoteScreen")
-                            } )
-                        }
-                    }
+//                    LazyColumn{
+//                        items(items=noteList.reversed()){
+//                            NoteRow(note = it ,noteViewModel=noteViewModel, onNoteClick ={
+//                                navController?.currentBackStackEntry?.savedStateHandle?.set(key="note_obj", value = it)
+//                                navController?.navigate("NoteScreen")
+//                            } )
+//                        }
+//                    }
                 }
             }
         }

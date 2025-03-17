@@ -28,7 +28,8 @@ object AppModule {
         return   Room.databaseBuilder(
             context,
             NoteDatabase::class.java,
-            "notes_table"
+            "note_database" // ✅ Database ka alag naam rakho
         ).fallbackToDestructiveMigration().build()
+
     }
 }

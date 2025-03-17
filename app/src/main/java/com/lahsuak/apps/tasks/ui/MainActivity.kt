@@ -42,6 +42,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.compose.rememberNavController
+import com.example.note_app.viewModel.NoteViewModel
 import com.google.accompanist.systemuicontroller.SystemUiController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.android.material.snackbar.Snackbar
@@ -84,6 +85,7 @@ class MainActivity : AppCompatActivity() {
     private val subTaskViewModel: SubTaskViewModel by viewModels()
     private val notificationViewModel: NotificationViewModel by viewModels()
     private val settingViewModel: SettingsViewModel by viewModels()
+    val noteViewModel: NoteViewModel by viewModels()
     private lateinit var appUpdateManager: AppUpdateManager
     private lateinit var view: View
     private var reviewInfo: ReviewInfo? = null
@@ -129,6 +131,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.Theme_Tasks)
@@ -185,6 +188,7 @@ class MainActivity : AppCompatActivity() {
                             navController,
                             settingPreferences = settingsPreferences,
                             windowSize = rememberWindowSize(),
+                            noteViewModel =noteViewModel
                         )
                     } else {
                         Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {

@@ -24,5 +24,8 @@ interface NoteDatabaseDao  {
 
     @Query("DELETE from note_table WHERE note_id=:note_id")
     suspend fun deleteNote(note_id:String)
+    // ✅ Update Lock Status Query
+    @Query("UPDATE note_table SET isLocked = :isLocked, password = :password WHERE note_id = :noteId")
+    suspend fun updateNoteLockStatus(noteId: String, isLocked: Boolean, password: String?)
 
 }

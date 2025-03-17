@@ -2,9 +2,11 @@ package com.lahsuak.apps.Notes.note_app.screens
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
@@ -22,6 +24,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -32,8 +35,11 @@ import androidx.navigation.NavController
 import com.lahsuak.apps.Notes.note_app.components.ImageSlider
 import com.example.note_app.model.Note
 import com.example.note_app.viewModel.NoteViewModel
+import com.jaixlabs.checksy.ui.navigation.NavigationItem
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -48,24 +54,28 @@ import java.util.*
 @Composable
 fun NoteScreen(
     navController: NavController? = null,
-    context: Context? = null,
     noteViewModel: NoteViewModel? = null,
     note_obj: Note? = null
 ) {
 
-
+    val context = LocalContext.current
 
     //image from gallery
 
     val galleryImage = remember {
         mutableStateListOf<String>(emptyList<String>().toString())
     }
+
     val listAlert = remember {
         mutableStateOf(false)
     }
     val title = remember {
         mutableStateOf("")
     }
+    val password = remember {
+        mutableStateOf("")
+    }
+    val isLocked = remember { mutableStateOf(false) }
     val note = remember {
         mutableStateOf("")
     }
@@ -150,45 +160,60 @@ fun NoteScreen(
                             Modifier
                                 .size(40.dp)
                                 .clickable {
-                                    coroutineScope.launch {
-                                        val bitmapList = mutableListOf<Bitmap>()
-//
-                                        uriImage.value.forEach {
-                                            bitmapList.add(
-                                                MediaStore.Images.Media.getBitmap(
-                                                    context?.contentResolver,
-                                                    it
+                                    coroutineScope.launch(Dispatchers.IO) { // ✅ Background Thread Pe Move Kiya
+                                        try {
+                                            val bitmapList = mutableListOf<Bitmap>()
+
+                                            // ✅ Image Processing (Decode + Save) on IO Thread
+                                            uriImage.value.forEach { uri ->
+                                                val inputStream = context?.contentResolver?.openInputStream(uri)
+                                                val bitmap = BitmapFactory.decodeStream(inputStream)
+                                                if (bitmap != null) {
+                                                    bitmapList.add(bitmap)
+                                                }
+                                                inputStream?.close()
+                                            }
+                                            val newGalleryImage = galleryImage.toMutableList()
+                                            bitmapList.forEach { bitmap ->
+                                                val stream = ByteArrayOutputStream()
+                                                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+                                                val imageData: ByteArray = stream.toByteArray()
+                                                val fileName = "image_${System.currentTimeMillis()}.png"
+                                                val imageFile = File(context!!.filesDir, fileName)
+
+                                                FileOutputStream(imageFile).use { it.write(imageData) }
+                                                newGalleryImage.add(imageFile.absolutePath)
+                                            }
+
+                                            Log.d("NoteScreen", "Adding Note: Title=${title.value}, Note=${note.value}, Images=${newGalleryImage.size}")
+
+                                            // ✅ Note DB Insert on Background Thread
+                                            noteViewModel?.addNote(
+                                                Note(
+                                                    id = id,
+                                                    title = title.value,
+                                                    note = note.value,
+                                                    imageList = newGalleryImage,
+                                                    timeStamp = formatted.value,
+                                                    isLocked = isLocked.value,
+                                                    password = password.value
+
                                                 )
                                             )
+
+                                            // ✅ UI Navigation on Main Thread
+                                            withContext(Dispatchers.Main) {
+                                                navController?.navigate(NavigationItem.Task.route)
+                                            }
+                                        } catch (e: Exception) {
+                                            Log.e("NoteScreen", "Error processing image: ${e.message}")
                                         }
-
-                                        bitmapList.forEach {
-                                            val stream = ByteArrayOutputStream()
-                                            it.compress(Bitmap.CompressFormat.PNG, 100, stream)
-                                            val imageData: ByteArray = stream.toByteArray()
-                                            val fileName =
-                                                "image_" + System.currentTimeMillis() + ".png"
-                                            val imageFile = File(context!!.filesDir, fileName)
-                                            val fos = FileOutputStream(imageFile)
-                                            fos.write(imageData)
-                                            fos.close()
-                                            val path: String = imageFile.absolutePath
-                                            galleryImage.add(path)
-
-                                        }
-                                        noteViewModel?.addNote(
-                                            Note(
-                                                id = id,
-                                                title = title.value,
-                                                note = note.value,
-                                                imageList = galleryImage,
-                                                timeStamp = formatted.value
-                                            )
-                                        )
-
-                                        navController?.navigate("HomeScreen")
                                     }
-                                })
+                                }
+                        )
+
+
+
                     }
 
                 }

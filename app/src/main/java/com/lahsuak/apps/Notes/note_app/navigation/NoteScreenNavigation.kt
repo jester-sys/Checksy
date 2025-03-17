@@ -27,7 +27,7 @@ fun NoteScreenNavigation(context:Context,noteViewModel: NoteViewModel){
         }
         composable("NoteScreen") {
             val noteObj=navController.previousBackStackEntry?.savedStateHandle?.get<Note>("note_obj")
-            NoteScreen(navController,context,noteViewModel,noteObj)
+            NoteScreen(navController,noteViewModel,noteObj)
 
         }
 

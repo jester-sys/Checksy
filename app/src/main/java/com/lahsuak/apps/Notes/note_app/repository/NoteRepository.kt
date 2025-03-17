@@ -25,6 +25,10 @@ class NoteRepository @Inject constructor(private val noteDatabaseDao: NoteDataba
     fun getAllNotes ():Flow<List<Note>> {
         return noteDatabaseDao.getNotes().flowOn(Dispatchers.IO).conflate()
     }
+    // ✅ Update Lock Status
+    suspend fun updateNoteLockStatus(noteId: String, isLocked: Boolean, password: String?) {
+        noteDatabaseDao.updateNoteLockStatus(noteId, isLocked, password)
+    }
 
 
 }

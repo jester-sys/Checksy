@@ -12,6 +12,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
+import com.example.note_app.model.Note
+import com.example.note_app.viewModel.NoteViewModel
 import com.jaixlabs.checksy.ui.screens.NotificationScreen
 import com.jaixlabs.checksy.ui.screens.OverviewScreen
 import com.jaixlabs.checksy.ui.screens.SubTaskScreen
@@ -40,6 +42,7 @@ fun TaskNavHost(
     modifier: Modifier = Modifier,
     settingPreferences: SettingPreferences,
     windowSize: WindowSize,
+    noteViewModel: NoteViewModel
 ) {
     NavHost(
         modifier = modifier,
@@ -80,7 +83,8 @@ fun TaskNavHost(
                 navController,
                 taskViewModel,
                 settingPreferences,
-                windowSize
+                windowSize,
+                noteViewModel
             )
         }
         composable("${NavigationItem.SubTask.route}/{$TASK_ID}/{$HAS_NOTIFICATION}",
@@ -123,7 +127,9 @@ fun TaskNavHost(
         }
 
         composable(NavigationItem.AddNotes.route) {
-            NoteScreen( navController)
+            val noteObj=navController.previousBackStackEntry?.savedStateHandle?.get<Note>("note_obj")
+            NoteScreen(navController,noteViewModel,noteObj)
+
         }
     }
 }

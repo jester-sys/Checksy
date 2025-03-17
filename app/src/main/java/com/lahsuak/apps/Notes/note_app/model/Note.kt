@@ -22,5 +22,13 @@ data class Note(
     @ColumnInfo(name = "note_image")
     val imageList: List<String>?,
     @ColumnInfo(name = "note_time")
-    val timeStamp:String
+    val timeStamp:String,
+
+    // ✅ New Columns for Lock Feature
+    @ColumnInfo(name = "isLocked")
+    val isLocked: Boolean = false,
+
+    @ColumnInfo(name = "password")
+    val password: String? = null
+
 ) : Parcelable

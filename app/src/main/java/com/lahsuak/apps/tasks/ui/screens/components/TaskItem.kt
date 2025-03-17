@@ -137,6 +137,7 @@ fun TaskItem(
                         isLandScape,
                         titleSize,
                         isListViewEnable,
+
                         showSubTask,
                         isChecked,
                         isExpanded,

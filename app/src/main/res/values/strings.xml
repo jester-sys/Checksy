@@ -330,6 +330,7 @@
     <string name="make_search_bar_longer" translatable="false">Scale Search Bar Width</string>
     <string name="make_search_bar_longer_description" translatable="false">Make search bar match width of notes</string>
     <string name="add_note">Add Note</string>
+    <string name="create_new_note">Create a New Notes</string>
 
 
 </resources>

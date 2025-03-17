@@ -20,9 +20,13 @@ class NoteViewModel @Inject constructor(val repository: NoteRepository) : ViewMo
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.getAllNotes().distinctUntilChanged().collect { notes ->
-                _noteList.value = notes
-            }
+            repository.getAllNotes()
+                .distinctUntilChanged()
+                .collect { notes ->
+                    viewModelScope.launch(Dispatchers.Main) { // ✅ Ensure UI Thread Pe Assign Ho
+                        _noteList.value = notes
+                    }
+                }
         }
     }
 
@@ -33,8 +37,12 @@ class NoteViewModel @Inject constructor(val repository: NoteRepository) : ViewMo
     fun deleteNote(note_id: String) = viewModelScope.launch {
         repository.deleteNote(note_id)
     }
-}
 
+    // ✅ Update Lock Status (Locked/Unlocked with Password)
+    fun updateNoteLockStatus(noteId: String, isLocked: Boolean, password: String?) = viewModelScope.launch {
+        repository.updateNoteLockStatus(noteId, isLocked, password)
+    }
+}
 
 //@HiltViewModel
 //class NoteViewModel @Inject constructor(val repository: NoteRepository) :ViewModel() {
