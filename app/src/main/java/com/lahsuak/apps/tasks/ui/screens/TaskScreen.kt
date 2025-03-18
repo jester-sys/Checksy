@@ -167,7 +167,6 @@ fun TaskScreen(
     val noteList = noteViewModel?.noteList?.collectAsState()?.value ?: emptyList()
 
 
-
     var isBottomSheetOpened by rememberSaveable {
         mutableStateOf(false)
     }
@@ -179,7 +178,7 @@ fun TaskScreen(
     val active = stringResource(R.string.active)
     val done = stringResource(R.string.done)
     val status = remember {
-        mutableStateListOf(notes,active, done)
+        mutableStateListOf(notes, active, done)
     }
     var isTaskDone by rememberSaveable {
         mutableStateOf(false)
@@ -273,6 +272,7 @@ fun TaskScreen(
                 }
             }
         }
+
         TaskEvent.NavigateToAllCompletedScreen -> {
             if (openDeleteDialog) {
                 AlertDialog(
@@ -487,7 +487,7 @@ fun TaskScreen(
                     )
                 }
             },
-            
+
             floatingActionButtonPosition = FabPosition.Center,
             floatingActionButton = {
                 if (!actionMode) {
@@ -496,7 +496,7 @@ fun TaskScreen(
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp),
                         horizontalArrangement =
-                        if (isTaskDone || isNotes) 
+                        if (isTaskDone || isNotes)
                             Arrangement.Center
                         else
                             Arrangement.SpaceBetween,
@@ -523,7 +523,10 @@ fun TaskScreen(
                                     .size(60.dp), // ✅ Right Bottom Position
                                 shape = CircleShape,
                                 onClick = {
-                                    navController?.currentBackStackEntry?.savedStateHandle?.set("note_obj", null)
+                                    navController?.currentBackStackEntry?.savedStateHandle?.set(
+                                        "note_obj",
+                                        null
+                                    )
                                     navController.navigate(NavigationItem.AddNotes.route)
                                     isNoteScreenVisible = true
                                 },
@@ -605,14 +608,12 @@ fun TaskScreen(
                 }
 
 
-
-
-    },
+            },
             snackbarHost = {
                 SnackbarHost(snackBarHostState)
             }
         ) { paddingValue ->
-            if(isNoteScreenVisible== false) {
+            if (!isNoteScreenVisible) {
                 if (tasks.isEmpty()) {
                     Box(
                         modifier = Modifier
@@ -674,17 +675,25 @@ fun TaskScreen(
                 item(span = StaggeredGridItemSpan.FullLine) {
                     AnimatedVisibility(!actionMode) {
                         HeaderContent(
-                            tasks.filter { it.isDone }.size,
-                            tasks.size,
+                            completedTask = if (isNotes) 0 else tasks.count { it.isDone }, // ✅ Completed Tasks Count (0 for Notes)
+                            totalTask = if (isNotes) noteList.size else tasks.size, // ✅ Total Notes or Tasks Count,
                             searchQuery = searchQuery,
                             onQueryChange = {
                                 searchQuery = it
-                                taskViewModel.searchQuery.value = it
+                                if (isNotes) {
+                                    noteViewModel?.searchQuery?.value = it
+                                } else {
+                                    taskViewModel.searchQuery.value = it
+                                }
                             },
                             isListViewEnable = isListViewEnable,
                             onViewChange = {
                                 isListViewEnable = it
-                                taskViewModel.onViewTypeChanged(it, context)
+                                if (isNotes) {
+                                    noteViewModel?.onViewTypeChanged(it, context)
+                                } else {
+                                    taskViewModel.onViewTypeChanged(it, context)
+                                }
                             },
                             onStatusChange = { index: Int ->
                                 when (index) {
@@ -693,11 +702,13 @@ fun TaskScreen(
                                         isTaskDone = false
                                         isNoteScreenVisible = true
                                     }
+
                                     1 -> { // ✅ Active Selected
                                         isNotes = false
                                         isTaskDone = false
                                         isNoteScreenVisible = false
                                     }
+
                                     2 -> { // ✅ Done Selected
                                         isNotes = false
                                         isTaskDone = true
@@ -706,16 +717,23 @@ fun TaskScreen(
                                 }
                             },
                             status = status,
-                            selectedStatusIndex = if (isTaskDone) 2 else if (isNotes) 0 else 1,
+                            selectedStatusIndex = if (isNotes) 0 else if (isTaskDone) 2 else 1,
                             sortTypes = sortTypes,
                             selectedSort = selectedSort,
                             onSortChange = { index ->
                                 selectedSortIndex = index
                                 selectedSort = sortTypes[selectedSortIndex]
-                                taskViewModel.onSortOrderSelected(
-                                    SortOrder.getOrder(index),
-                                    context
-                                )
+                                if (isNotes) {
+                                    noteViewModel?.onSortOrderSelected(
+                                        SortOrder.getOrder(index),
+                                        context
+                                    )
+                                } else {
+                                    taskViewModel.onSortOrderSelected(
+                                        SortOrder.getOrder(index),
+                                        context
+                                    )
+                                }
                             },
                             onProgressBarClick = {
                                 navController.navigate(NavigationItem.Overview.route)
@@ -724,11 +742,27 @@ fun TaskScreen(
                         )
                     }
                 }
+                // ✅ Apply Search & Sort Based on Selection
+                val filteredList = if (isNotes) {
+                    noteList.filter { it.title.contains(searchQuery, ignoreCase = true) }
+                        .sortedByDescending { it.timeStamp } // ✅ Notes Sorted by Date (Latest First)
+                } else {
+                    tasks.filter { t ->
+                        when {
+                            isTaskDone -> t.isDone // ✅ Done wale tasks show honge
+                            isNotes -> !t.isDone && (t.category
+                                ?: "") == "Notes" // ✅ Notes wale show honge
+                            else -> !t.isDone // ✅ Active wale tasks show honge
+                        }
+                    }.filter { it.title.contains(searchQuery, ignoreCase = true) } // ✅ Apply Search
+                        .sortedByDescending { it.isImp } // ✅ Important Tasks Pehle Dikhaye
+                }
 
-                // ✅ Notes ka StaggeredGrid (Jaise Active aur Done ka hai)
+
+                // ✅ Notes & Tasks Handling
                 if (isNotes) {
-                    if (noteList.isEmpty()) {
-                        // ✅ Notes empty hai to Add Notes ka message dikhao
+                    if (filteredList.isEmpty()) {
+                        // ✅ Empty Notes Message
                         item(span = StaggeredGridItemSpan.FullLine) {
                             Box(
                                 modifier = Modifier
@@ -754,15 +788,18 @@ fun TaskScreen(
                                         colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
                                     )
                                     Spacer(modifier = Modifier.height(4.dp))
-                                    Text(stringResource(R.string.create_new_note), textAlign = TextAlign.Center)
+                                    Text(
+                                        stringResource(R.string.create_new_note),
+                                        textAlign = TextAlign.Center
+                                    )
                                 }
                             }
                         }
                     } else {
-
-                        items(noteList.reversed()) { note ->
+                        // ✅ Show Sorted and Filtered Notes
+                        items(filteredList) { note ->
                             NoteRow(
-                                note = note,
+                                note = note as Note,
                                 noteViewModel = noteViewModel,
                                 onNoteClick = {
                                     navController?.currentBackStackEntry?.savedStateHandle?.set(
@@ -782,30 +819,25 @@ fun TaskScreen(
                                     navController?.navigate("NoteScreen") // ✅ Navigate to Edit Screen
                                 },
                                 onLockNote = { isLocked, password ->
-                                    noteViewModel?.updateNoteLockStatus(note.id, isLocked, password) // ✅ Update Lock Status in DB
+                                    noteViewModel?.updateNoteLockStatus(
+                                        note.id,
+                                        isLocked,
+                                        password
+                                    ) // ✅ Update Lock Status in DB
                                 }
                             )
                         }
-
-
-
                     }
-                }
-                // ✅ Active aur Done ka StaggeredGrid
-                else {
+                } else {
+                    // ✅ Active & Done Tasks
                     items(
-                        tasks.filter { t ->
-                            when {
-                                isTaskDone -> t.isDone // ✅ Done wale tasks show honge
-                                isNotes -> !t.isDone && (t.category ?: "") == "Notes" // ✅ Notes wale show honge
-                                else -> !t.isDone // ✅ Active wale tasks show honge
-                            }
-                        }.sortedByDescending { t -> t.isImp },
-                        key = { t -> t.id + Random.nextInt() }
-                    ) { task ->
+                        filteredList.filterIsInstance<Task>(),
+                        key = { task: Task -> task.id + Random.nextInt() }) { task ->
+
                         TaskItem(
                             Modifier
-                                .combinedClickable(
+                            .padding(vertical = 8.dp)
+                            .combinedClickable(
                                     onClick = {
                                         if (actionMode) {
                                             if (selectedItems.contains(task))
@@ -834,7 +866,7 @@ fun TaskScreen(
                                     color = MaterialTheme.colorScheme.primary,
                                     RoundedCornerShape(8.dp)
                                 ),
-                            task = task,
+                            task = task as Task,
                             settingPreferences = settingsPreferences,
                             isListViewEnable = isListViewEnable,
                             onImpSwipe = { isImp ->
@@ -867,25 +899,12 @@ fun TaskScreen(
                             }
                         }
                     }
+
                 }
             }
-
-
-
-
         }
-
-
-
-
-        }
-
-
     }
-
-
-
-
+}
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun HeaderContent(
