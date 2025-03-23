@@ -59,10 +59,11 @@ class NoteViewModel @Inject constructor(val repository: NoteRepository) : ViewMo
         Log.d("NoteViewModel", "View Type Changed: ${if (isListView) "List View" else "Grid View"}")
     }
 
-    // ✅ Adding a Note
-    fun addNote(note: Note) = viewModelScope.launch {
+    // ✅ Ensure Database Insert Runs on IO Thread
+    fun addNote(note: Note) = viewModelScope.launch(Dispatchers.IO) {
         repository.addNote(note)
     }
+
 
     // ✅ Deleting a Note
     fun deleteNote(note_id: String) = viewModelScope.launch {

@@ -46,6 +46,7 @@ import androidx.compose.material.ModalBottomSheetLayout
 //noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.KeyboardArrowDown
@@ -262,8 +263,8 @@ fun TaskScreen(
                     )
                     when (snackBarResult) {
                         SnackbarResult.Dismissed -> {
-                        }
 
+                        }
                         SnackbarResult.ActionPerformed -> {
                             taskViewModel.onUndoDeleteClick(event.task)
                         }
@@ -532,9 +533,10 @@ fun TaskScreen(
                                 },
                             ) {
                                 Icon(
-                                    painterResource(R.drawable.ic_create),
+                                    imageVector = Icons.Default.Add,
                                     contentDescription = stringResource(R.string.add_note)
                                 )
+
                             }
 
                         }
@@ -816,7 +818,7 @@ fun TaskScreen(
                                         key = "note_obj",
                                         value = note
                                     )
-                                    navController?.navigate("NoteScreen") // ✅ Navigate to Edit Screen
+                                    navController?.navigate("NoteScreen")
                                 },
                                 onLockNote = { isLocked, password ->
                                     noteViewModel?.updateNoteLockStatus(

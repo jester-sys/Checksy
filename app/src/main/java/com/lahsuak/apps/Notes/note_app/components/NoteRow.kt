@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -27,6 +28,8 @@ import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.LockOpen
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.mapSaver
@@ -41,6 +44,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
@@ -80,7 +84,7 @@ fun NoteRow(
     val selectedFont = remember { mutableStateOf(note.selectedFont) }
 
     // ✅ Default Light Blue Color
-    val defaultLightBlue = Color(0xFF001944) // Light Blue Shade
+    val defaultLightBlue = Color(0xFF59c0e7)
 
 // ✅ Ensure Card Background is Correct
     val appliedBackgroundColor = when {
@@ -117,12 +121,14 @@ fun NoteRow(
                     showPasswordDialog = true
                     false
                 }
+
                 DismissValue.DismissedToStart -> {
                     if (!isLocked) {
                         show = false
                         true
                     } else false
                 }
+
                 else -> false
             }
         }
@@ -140,6 +146,7 @@ fun NoteRow(
                 Card(
                     modifier = modifier
                         .fillMaxWidth()
+                        .padding(top = 12.dp)
                         .then(
                             if (!isLocked) Modifier.clickable { isExpanded = !isExpanded }
                             else Modifier
@@ -150,7 +157,7 @@ fun NoteRow(
                 ) {
                     Column(modifier = Modifier.padding(12.dp)) { // ✅ Inner Padding Added
                         Row(
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier.fillMaxWidth().padding(12.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Column(modifier = Modifier.weight(1f)) {
@@ -177,6 +184,7 @@ fun NoteRow(
                             )
                         }
 
+
                         AnimatedVisibility(visible = isExpanded) {
                             Column {
                                 Text(
@@ -184,94 +192,126 @@ fun NoteRow(
                                     fontSize = textSize.value,
                                     fontWeight = if (isBold.value) FontWeight.Bold else FontWeight.Normal,
                                     fontFamily = getFontFamily(selectedFont.value),
-                                    color = Color.White
+                                    color = Color.Black
                                 )
                                 if (!note.imageList.isNullOrEmpty()) {
-                                    Box {
+                                    Box(
+                                        modifier = Modifier.fillMaxWidth().padding(bottom = 12.dp)
+                                    ) {
                                         ImageSliderBitmap(imageList = note.imageList)
+
+
+                                        IconButton(
+                                            onClick = { onEditNote() },
+                                            modifier = Modifier
+                                                .align(Alignment.BottomEnd)
+                                                .padding(8.dp)
+                                                .size(20.dp)
+                                        ) {
+                                            Icon(
+                                                imageVector = Icons.Default.Edit,
+                                                contentDescription = "Edit Note",
+                                                tint = Color.Black
+                                            )
+                                        }
                                     }
                                 }
-                                // ✅ Edit icon will always show, even if there is no image
-                                IconButton(
-                                    onClick = { onEditNote() },
-                                    modifier = Modifier.align(Alignment.End)
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Default.Edit,
-                                        contentDescription = "Edit Note",
-                                        tint = Color.Black
-                                    )
-                                }
+
                             }
                         }
                     }
                 }
 
 
-
-
-
-
             }
         )
     }
 
 
-
-    // ✅ Lock/Unlock Password Dialog
+// ✅ Lock/Unlock Password Dialog (Beautiful UI)
     if (showPasswordDialog) {
         AlertDialog(
             onDismissRequest = { showPasswordDialog = false },
-            title = { Text(if (isLocked) "Enter Password to Unlock" else "Set Password to Lock") },
+            shape = RoundedCornerShape(16.dp), // ✅ Smooth Rounded Corners
+            backgroundColor =  androidx.compose.material3.MaterialTheme.colorScheme.surface,
+            title = {
+                Text(
+                    text = if (isLocked) "🔒 Enter Password to Unlock" else "🔑 Set Password to Lock",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black
+                )
+            },
             text = {
                 Column {
-                    TextField(
+                    var passwordVisible by remember { mutableStateOf(false) }
+
+                    OutlinedTextField(
                         value = inputPassword,
                         onValueChange = { inputPassword = it },
                         label = { Text("Password") },
-                        visualTransformation = PasswordVisualTransformation()
+                        visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                        trailingIcon = {
+                            IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                                Icon(
+                                    imageVector = if (passwordVisible) Icons.Default.Visibility else Icons.Default.VisibilityOff,
+                                    contentDescription = "Toggle Password Visibility"
+                                )
+                            }
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            focusedBorderColor = Color.Blue,
+                            unfocusedBorderColor = Color.Gray
+                        )
                     )
                 }
             },
             confirmButton = {
-                Button(onClick = {
-                    if (isLocked) {
-                        if (inputPassword == password) {
-                            isLocked = false
-                            onLockNote(false, null)
-                            showPasswordDialog = false
+                Button(
+                    onClick = {
+                        if (isLocked) {
+                            if (inputPassword == password) {
+                                isLocked = false
+                                onLockNote(false, null)
+                                showPasswordDialog = false
+                            } else {
+                                Toast.makeText(context, " Wrong Password", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
                         } else {
-                            Toast.makeText(context, "Wrong Password", Toast.LENGTH_SHORT).show()
+                            password = inputPassword
+                            isLocked = true
+                            onLockNote(true, password)
+                            showPasswordDialog = false
                         }
-                    } else {
-                        password = inputPassword
-                        isLocked = true
-                        onLockNote(true, password)
-                        showPasswordDialog = false
-                    }
-                    inputPassword = ""
-                }) {
-                    Text("Confirm")
+                        inputPassword = ""
+                    },
+                    colors = ButtonDefaults.buttonColors(backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.surface)
+                ) {
+                    Text("Confirm", color = Color.White)
                 }
             },
             dismissButton = {
-                Button(onClick = { showPasswordDialog = false }) {
-                    Text("Cancel")
+                OutlinedButton(
+                    onClick = { showPasswordDialog = false },
+                    border = BorderStroke(1.dp, Color.Blue)
+                ) {
+                    Text("Cancel", color = Color.Red)
                 }
             }
         )
     }
 
+// ✅ Smooth Delete Animation
     LaunchedEffect(show) {
         if (!show) {
             delay(500)
             onDeleteNote()
         }
     }
+
 }
-
-
-
 
 
 @OptIn(ExperimentalMaterialApi::class)

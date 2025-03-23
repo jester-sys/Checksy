@@ -58,6 +58,9 @@ import com.example.note_app.viewModel.NoteViewModel
 import com.jaixlabs.checksy.ui.navigation.NavigationItem
 import com.jaixlabs.checksy.util.preference.SettingPreferences
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -108,7 +111,7 @@ fun NoteScreen(
     val textSize = remember { mutableStateOf(note_obj?.getTextSize() ?: 16.sp) }
 
     // ✅ Default Light Blue Color
-    val defaultLightBlue = Color(0xFF59c0e7) // Light Blue Shade
+    val defaultLightBlue = Color(0xFF59c0e7)
 
 
 // ✅ System Theme Check
@@ -121,6 +124,7 @@ fun NoteScreen(
                 ?: Color.Unspecified
         )
     }
+
 
 // ✅ Apply Background: Custom → System Theme → Default Light Blue
     val appliedBackgroundColor = when {
@@ -311,51 +315,34 @@ fun NoteScreen(
                                             .clickable {
                                                 coroutineScope.launch(Dispatchers.IO) {
                                                     try {
-                                                        val bitmapList = mutableListOf<Bitmap>()
+                                                        val newGalleryImage = mutableListOf<String>()
 
-                                                        // ✅ Image Processing
-                                                        uriImage.value.forEach { uri ->
-                                                            val inputStream =
-                                                                context.contentResolver?.openInputStream(
-                                                                    uri
-                                                                )
-                                                            val bitmap = BitmapFactory.decodeStream(
-                                                                inputStream
-                                                            )
-                                                            bitmap?.let { bitmapList.add(it) }
-                                                            inputStream?.close()
-                                                        }
+                                                        coroutineScope {
+                                                            val imageSaveJobs = uriImage.value.map { uri ->
+                                                                async(Dispatchers.IO) {
+                                                                    val inputStream = context.contentResolver?.openInputStream(uri)
+                                                                    val bitmap = BitmapFactory.decodeStream(inputStream)
+                                                                    inputStream?.close()
 
-                                                        val newGalleryImage =
-                                                            galleryImage.toMutableList()
-                                                        bitmapList.forEach { bitmap ->
-                                                            val stream = ByteArrayOutputStream()
-                                                            bitmap.compress(
-                                                                Bitmap.CompressFormat.PNG,
-                                                                100,
-                                                                stream
-                                                            )
-                                                            val imageData: ByteArray =
-                                                                stream.toByteArray()
-                                                            val fileName =
-                                                                "image_${System.currentTimeMillis()}.png"
-                                                            val imageFile =
-                                                                File(context.filesDir, fileName)
+                                                                    bitmap?.let {
+                                                                        val stream = ByteArrayOutputStream()
+                                                                        it.compress(Bitmap.CompressFormat.JPEG, 80, stream)
+                                                                        val imageData: ByteArray = stream.toByteArray()
 
-                                                            FileOutputStream(imageFile).use {
-                                                                it.write(
-                                                                    imageData
-                                                                )
+                                                                        val fileName = "image_${System.currentTimeMillis()}.jpg"
+                                                                        val imageFile = File(context.filesDir, fileName)
+                                                                        FileOutputStream(imageFile).use { it.write(imageData) }
+
+                                                                        newGalleryImage.add(imageFile.absolutePath)
+                                                                    }
+                                                                }
                                                             }
-                                                            newGalleryImage.add(imageFile.absolutePath)
+
+                                                            imageSaveJobs.awaitAll() // ✅ Ensure all images are saved
                                                         }
 
-                                                        Log.d(
-                                                            "NoteScreen",
-                                                            "Adding Note: Title=${title.value}, Note=${note.value}, Images=${newGalleryImage.size}"
-                                                        )
+                                                        Log.d("NoteScreen", "🟢 Images Saved, Now Saving Note")
 
-                                                        // ✅ Save Note to DB
                                                         noteViewModel?.addNote(
                                                             Note(
                                                                 id = id,
@@ -372,17 +359,17 @@ fun NoteScreen(
                                                             )
                                                         )
 
-                                                        // ✅ Navigate Back to Home
+                                                        Log.d("NoteScreen", "✅ Note Saved Successfully")
+
                                                         withContext(Dispatchers.Main) {
                                                             navController?.navigate(NavigationItem.Task.route)
                                                         }
                                                     } catch (e: Exception) {
-                                                        Log.e(
-                                                            "NoteScreen",
-                                                            "Error processing image: ${e.message}"
-                                                        )
+                                                        Log.e("NoteScreen", "❌ Error processing image: ${e.message}")
                                                     }
                                                 }
+
+
                                             }
                                     )
                                 }
