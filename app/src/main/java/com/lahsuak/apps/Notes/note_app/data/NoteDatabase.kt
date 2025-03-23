@@ -1,15 +1,16 @@
-package com.example.note_app.data
+package com.lahsuak.apps.Notes.note_app.data
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.example.note_app.data.NoteDatabaseDao
 import com.example.note_app.model.Note
 import com.lahsuak.apps.Notes.note_app.util.StringListConverter
 
 
-@Database(entities = [Note::class], version = 6, exportSchema = false)
+@Database(entities = [Note::class], version = 7, exportSchema = false)
 @TypeConverters(StringListConverter::class)
 abstract class NoteDatabase:RoomDatabase() {
-    abstract fun noteDao():NoteDatabaseDao
+    abstract fun noteDao(): NoteDatabaseDao
 
 }

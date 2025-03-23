@@ -836,8 +836,8 @@ fun TaskScreen(
 
                         TaskItem(
                             Modifier
-                            .padding(vertical = 8.dp)
-                            .combinedClickable(
+                                .padding(vertical = 8.dp)
+                                .combinedClickable(
                                     onClick = {
                                         if (actionMode) {
                                             if (selectedItems.contains(task))
@@ -1052,4 +1052,3 @@ fun HeaderContent(
         }
     }
 }
-

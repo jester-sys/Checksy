@@ -6,6 +6,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -26,17 +27,17 @@ import java.io.File
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ImageSliderBitmap(imageList:List<String>){
+fun ImageSliderBitmap(imageList: List<String>) {
+    // ✅ Filter out empty and non-existing image paths
+    val validImages = imageList.filter { path ->
+        path.isNotBlank() && File(path).exists()
+    }
 
-    if (imageList.isNotEmpty()) {
-
-
-        val pagerState = rememberPagerState { imageList.size }
+    if (validImages.isNotEmpty()) { // ✅ Only show if images exist
+        val pagerState = rememberPagerState { validImages.size }
 
         Box(
-            modifier =
-            Modifier
-
+            modifier = Modifier
                 .fillMaxWidth()
                 .height(300.dp)
                 .padding(10.dp)
@@ -48,24 +49,16 @@ fun ImageSliderBitmap(imageList:List<String>){
                 border = BorderStroke(5.dp, Color.Gray)
             ) {
                 HorizontalPager(state = pagerState) { page ->
-                    val path: String = imageList.reversed()[page]
-                    var imgBitmap: Bitmap? = null
-
-                    if (path.isNotEmpty()) {
-                        val imgFile = File(path)
-                        if (imgFile.exists()) {
-                            imgBitmap = BitmapFactory.decodeFile(imgFile.absolutePath)
-                        }
-                    }
+                    val path: String = validImages[page]
+                    val imgBitmap: Bitmap? = BitmapFactory.decodeFile(File(path).absolutePath)
 
                     Image(
                         painter = rememberAsyncImagePainter(imgBitmap),
-                        contentDescription = null
+                        contentDescription = null,
+                        modifier = Modifier.fillMaxSize()
                     )
                 }
             }
-
         }
-
     }
 }

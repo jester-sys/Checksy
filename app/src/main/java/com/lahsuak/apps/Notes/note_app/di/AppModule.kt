@@ -2,7 +2,7 @@ package com.example.note_app.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.note_app.data.NoteDatabase
+import com.lahsuak.apps.Notes.note_app.data.NoteDatabase
 import com.example.note_app.data.NoteDatabaseDao
 import dagger.Module
 import dagger.Provides
@@ -18,13 +18,13 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideNotesDao(noteDatabase:NoteDatabase): NoteDatabaseDao {
+    fun provideNotesDao(noteDatabase: NoteDatabase): NoteDatabaseDao {
         return noteDatabase.noteDao()
     }
 
     @Singleton
     @Provides
-    fun provideAppDatabase(@ApplicationContext context:Context):NoteDatabase{
+    fun provideAppDatabase(@ApplicationContext context:Context): NoteDatabase {
         return   Room.databaseBuilder(
             context,
             NoteDatabase::class.java,

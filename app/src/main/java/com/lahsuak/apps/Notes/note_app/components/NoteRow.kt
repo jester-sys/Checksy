@@ -29,6 +29,7 @@ import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.LockOpen
 import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.mapSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,6 +38,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
@@ -51,216 +53,7 @@ import kotlinx.coroutines.delay
 import java.io.File
 
 
-//@Composable
-//fun NoteRow(
-//    note: Note,
-//    context: Context,
-//    onNoteClick: (Note) -> Unit,
-//    noteViewModel: NoteViewModel? = null
-//) {
-//    val isDialog = remember {
-//        mutableStateOf(false)
-//    }
-//
-//    if (note != null) {
-//        val expanded = remember {
-//            mutableStateOf(false)
-//        }
-//        Surface {
-//            Card(
-//                Modifier
-//                    .padding(start = 16.dp, end = 16.dp, top = 12.dp, bottom = 12.dp)
-//                    .fillMaxWidth()
-//                    .pointerInput(Unit) {
-//                        detectTapGestures(onLongPress = {
-//                            //noteViewModel?.deleteNote(note.id)
-//                            isDialog.value = true
-//                        },
-//                            onTap = {
-//                                expanded.value = !expanded.value
-//                            })
-//                    },
-//                shape = RoundedCornerShape(corner = CornerSize(16.dp)),
-//                elevation = 8.dp
-//            )
-//            {
-//                Column(
-//                    Modifier
-//                        .fillMaxSize()
-//                        .background(Color.Blue)
-//                ) {
-//                    Row(
-//                        verticalAlignment = Alignment.CenterVertically,
-//                        horizontalArrangement = Arrangement.Start
-//                    ) {
-//                        if (note.imageList != null) {
-//
-//
-//                            if (note.imageList.size >= 2) {
-//                                if (note.imageList[1] != "") {
-//                                    Surface(
-//                                        Modifier
-//                                            .padding(10.dp)
-//                                            .size(80.dp), elevation = 4.dp,
-//                                        shape = CircleShape
-//                                    ) {
-//                                        val imgFile = File(note.imageList[1])
-//
-//                                        // on below line we are checking if the image file exist or not.
-//                                        var imgBitmap: Bitmap? = null
-//                                        if (imgFile.exists()) {
-//                                            imgBitmap =
-//                                                BitmapFactory.decodeFile(imgFile.absolutePath)
-//                                        }
-//                                        Image(
-//                                            painter = rememberAsyncImagePainter(imgBitmap),
-//                                            contentDescription = null
-//                                        )
-//
-////                            val bitmap:Bitmap= MediaStore.Images.Media.getBitmap(this.getContentResolverl,uri)
-//                                    }
-//                                }
-//                            }
-////
-//
-//                        }
-//                        Column(Modifier.padding(4.dp)) {
-//
-//                            Text(
-//                                text = note.title,
-//                                style = MaterialTheme.typography.h6
-//                            )
-//                            Spacer(modifier = Modifier.size(10.dp))
-//                            Text(
-//                                text = "Time: ${note.timeStamp}",
-//                                style = MaterialTheme.typography.caption
-//                            )
-//
-//                        }
-//                    }
-//
-//                    //row ended
-//
-//                    AnimatedVisibility(visible = expanded.value) {
-//                        Column(Modifier.padding(4.dp)) {
-//                           val paths= mutableListOf<String>(emptyList<String>().toString())
-//                           note.imageList!!.forEach {
-//                               if(it.length>10){
-//                                   Log.i("path_image", it)
-//                                   paths.add(it)
-//                               }
-//                           }
-//                            if(paths.size>1){
-//                                Log.i("here", "NoteRow: "+paths.size.toString())
-//                                ImageSliderBitmap(imageList = paths)
-//                            }
-//
-//                            Spacer(modifier = Modifier.size(5.dp))
-//                            Divider()
-//                            Text(
-//                                text = "Description: ${note.note}", fontSize = 13.sp,
-//                                fontWeight = FontWeight.Bold
-//                            )
-//
-//
-//                        }
-//                    }
-//
-//                    Row {
-//                        Spacer(Modifier.fillMaxSize(0.90f))
-//                        Icon(imageVector = if (expanded.value) Icons.Rounded.KeyboardArrowUp else Icons.Rounded.ArrowDropDown,
-//                            contentDescription = null,
-//                            Modifier.clickable {
-//
-//
-//                                //action on click
-//                                expanded.value = !expanded.value
-//                            })
-//                    }
-//                }
-//
-//            }
-//            if (isDialog.value) {
-//                Dialog(onDismissRequest = { isDialog.value = false }) {
-//                    Card(
-//                        elevation = 20.dp, modifier = Modifier
-//                            .padding(4.dp)
-//                            .height(240.dp)
-//                            .width(180.dp)
-//                    ) {
-//                        Column {
-//                            Row(
-//                                Modifier
-//                                    .height(80.dp)
-//                                    .padding(start = 2.dp, end = 2.dp)
-//                                    .fillMaxWidth()
-//                                    .clickable {
-//                                        onNoteClick.invoke(note)
-//                                        isDialog.value = false
-//                                    }) {
-//                                Text(
-//                                    text = "Update", style = MaterialTheme.typography.h4,
-//                                    modifier = Modifier.align(alignment = Alignment.CenterVertically)
-//                                )
-//                                Spacer(modifier = Modifier.fillMaxSize(0.60f))
-//                                Image(
-//                                    imageVector = Icons.Rounded.Update, contentDescription = null,
-//                                    modifier = Modifier
-//                                        .size(30.dp)
-//                                        .align(alignment = Alignment.CenterVertically)
-//                                )
-//                            }
-//                            Divider()
-//                            Row(
-//                                Modifier
-//                                    .height(80.dp)
-//                                    .padding(start = 2.dp, end = 2.dp)
-//                                    .fillMaxWidth()
-//                                    .clickable {
-//                                        noteViewModel?.deleteNote(note_id = note.id)
-//                                        isDialog.value = false
-//                                    }) {
-//                                Text(
-//                                    text = "Delete", style = MaterialTheme.typography.h4,
-//                                    modifier = Modifier.align(alignment = Alignment.CenterVertically)
-//                                )
-//                                Spacer(modifier = Modifier.fillMaxSize(0.60f))
-//                                Image(
-//                                    imageVector = Icons.Rounded.Delete, contentDescription = null,
-//                                    modifier = Modifier
-//                                        .size(30.dp)
-//                                        .align(alignment = Alignment.CenterVertically)
-//                                )
-//                            }
-//                            Divider()
-//                            Row(
-//                                Modifier
-//                                    .height(80.dp)
-//                                    .padding(start = 2.dp, end = 2.dp)
-//                                    .fillMaxWidth()
-//                                    .clickable {
-//                                        isDialog.value = false
-//                                    }) {
-//                                Text(
-//                                    text = "Lock  ", style = MaterialTheme.typography.h4,
-//                                    modifier = Modifier.align(alignment = Alignment.CenterVertically)
-//                                )
-//                                Spacer(modifier = Modifier.fillMaxSize(0.60f))
-//                                Image(
-//                                    imageVector = Icons.Rounded.Lock, contentDescription = null,
-//                                    modifier = Modifier
-//                                        .size(30.dp)
-//                                        .align(alignment = Alignment.CenterVertically)
-//                                )
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
-//
-//}
+
 
 @OptIn(ExperimentalMaterialApi::class, ExperimentalFoundationApi::class)
 @Composable
@@ -271,26 +64,60 @@ fun NoteRow(
     onNoteClick: (Note) -> Unit,
     onDeleteNote: () -> Unit,
     onEditNote: () -> Unit,
-    onLockNote: (Boolean, String?) -> Unit // ✅ Now takes locked state + password
+    onLockNote: (Boolean, String?) -> Unit
 ) {
-    var context = LocalContext.current
-    val isExpanded = rememberSaveable { mutableStateOf(false) }
-    val isSelected = rememberSaveable { mutableStateOf(false) }
+    val context = LocalContext.current
     var isLocked by rememberSaveable { mutableStateOf(note.isLocked) }
     var password by rememberSaveable { mutableStateOf(note.password ?: "") }
     var showPasswordDialog by remember { mutableStateOf(false) }
     var inputPassword by remember { mutableStateOf("") }
     var show by remember { mutableStateOf(true) }
+    var isExpanded by remember { mutableStateOf(false) }
+
+    val textSize = remember { mutableStateOf(note.textSize.sp) }
+    val isBold = remember { mutableStateOf(note.isBold) }
+    val backgroundColor = remember { mutableStateOf(Color(note.backgroundColor)) }
+    val selectedFont = remember { mutableStateOf(note.selectedFont) }
+
+    // ✅ Default Light Blue Color
+    val defaultLightBlue = Color(0xFF001944) // Light Blue Shade
+
+// ✅ Ensure Card Background is Correct
+    val appliedBackgroundColor = when {
+        backgroundColor.value == Color.Unspecified -> defaultLightBlue // ✅ Default Light Blue
+        else -> backgroundColor.value // ✅ Custom Color Selected
+    }
+
+
+    // ✅ Function to Get Correct FontFamily Based on Selection
+    fun getFontFamily(font: String): FontFamily {
+        return when (font) {
+            "Serif" -> FontFamily.Serif
+            "Sans-serif" -> FontFamily.SansSerif
+            "Monospace" -> FontFamily.Monospace
+            "Cursive" -> FontFamily.Cursive
+            "Fantasy" -> FontFamily.Default
+            "Roboto" -> FontFamily.Default
+            "Lobster" -> FontFamily.Default
+            "Dancing Script" -> FontFamily.Default
+            "Playfair Display" -> FontFamily.Default
+            "Poppins" -> FontFamily.Default
+            "Raleway" -> FontFamily.Default
+            "Open Sans" -> FontFamily.Default
+            "Nunito" -> FontFamily.Default
+            "Oswald" -> FontFamily.Default
+            else -> FontFamily.Default
+        }
+    }
 
     val dismissState = rememberDismissState(
         confirmStateChange = {
-            when {
-                isLocked -> false // ✅ If locked, prevent swipe actions
-                it == DismissValue.DismissedToEnd -> { // Left Swipe → Edit Note
-                    if (!isLocked) onEditNote()
+            when (it) {
+                DismissValue.DismissedToEnd -> {
+                    showPasswordDialog = true
                     false
                 }
-                it == DismissValue.DismissedToStart -> { // Right Swipe → Delete Note
+                DismissValue.DismissedToStart -> {
                     if (!isLocked) {
                         show = false
                         true
@@ -309,74 +136,40 @@ fun NoteRow(
             state = dismissState,
             background = { DismissBackground(dismissState, isLocked) },
             dismissContent = {
+
                 Card(
                     modifier = modifier
                         .fillMaxWidth()
-                        .padding(8.dp)
-                        .combinedClickable(
-                            onClick = {
-                                if (isLocked) {
-                                    showPasswordDialog = true // ✅ Ask Password on Click
-                                } else {
-                                    isExpanded.value = !isExpanded.value
-                                }
-                            },
-                            onLongClick = {
-                                if (!isLocked) {
-                                    showPasswordDialog = true // ✅ Ask Password for Locking
-                                }
-                            }
-                        )
-                        .border(
-                            if (isSelected.value) 2.dp else 0.dp,
-                            color = MaterialTheme.colors.primary,
-                            shape = RoundedCornerShape(8.dp)
+                        .then(
+                            if (!isLocked) Modifier.clickable { isExpanded = !isExpanded }
+                            else Modifier
                         ),
-                    elevation = 4.dp,
-                    shape = RoundedCornerShape(12.dp)
+                    shape = RoundedCornerShape(12.dp), // ✅ Smooth Rounded Corners
+                    elevation = 2.dp, // ✅ Minimal Shadow (Avoid Extra Layer Look)
+                    backgroundColor = appliedBackgroundColor // ✅ Background Color Applied Properly
                 ) {
-                    Column(
-                        modifier = Modifier.background(MaterialTheme.colors.surface)
-                    ) {
+                    Column(modifier = Modifier.padding(12.dp)) { // ✅ Inner Padding Added
                         Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(8.dp),
+                            modifier = Modifier.fillMaxWidth(),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            if (!note.imageList.isNullOrEmpty()) {
-                                val imgFile = File(note.imageList.firstOrNull() ?: "")
-                                val imgBitmap =
-                                    if (imgFile.exists()) BitmapFactory.decodeFile(imgFile.absolutePath) else null
-
-                                imgBitmap?.let {
-                                    Image(
-                                        painter = rememberAsyncImagePainter(it),
-                                        contentDescription = "Note Image",
-                                        modifier = Modifier
-                                            .size(50.dp)
-                                            .clip(RoundedCornerShape(8.dp))
-                                    )
-                                }
-                            }
-
-                            Spacer(modifier = Modifier.width(8.dp))
-
                             Column(modifier = Modifier.weight(1f)) {
                                 Text(
                                     text = note.title,
-                                    style = MaterialTheme.typography.h6,
-                                    color = if (isLocked) Color.Gray else Color.Black // ✅ Locked Note Gray Out
+                                    fontSize = textSize.value,
+                                    fontWeight = if (isBold.value) FontWeight.Bold else FontWeight.Normal,
+                                    fontFamily = getFontFamily(selectedFont.value),
+                                    color = if (isLocked) Color.Gray else Color.Black
                                 )
                                 Spacer(modifier = Modifier.height(4.dp))
                                 Text(
                                     text = note.timeStamp,
-                                    style = MaterialTheme.typography.body2.copy(fontSize = 12.sp),
+                                    fontSize = 12.sp,
+                                    fontFamily = getFontFamily(selectedFont.value),
                                     color = Color.Gray
                                 )
                             }
 
-                            // ✅ Lock Icon (Pin ke saath)
                             Icon(
                                 imageVector = if (isLocked) Icons.Default.Lock else Icons.Default.LockOpen,
                                 contentDescription = "Lock Note",
@@ -384,26 +177,52 @@ fun NoteRow(
                             )
                         }
 
-                        // ✅ Hide Content if Locked
-                        AnimatedVisibility(visible = isExpanded.value && !isLocked) {
-                            Column(modifier = Modifier.padding(8.dp)) {
-                                Text(text = note.note, style = MaterialTheme.typography.body1)
-                                if (!note.imageList.isNullOrEmpty() && note.imageList.size > 1) {
-                                    ImageSliderBitmap(imageList = note.imageList)
+                        AnimatedVisibility(visible = isExpanded) {
+                            Column {
+                                Text(
+                                    text = note.note,
+                                    fontSize = textSize.value,
+                                    fontWeight = if (isBold.value) FontWeight.Bold else FontWeight.Normal,
+                                    fontFamily = getFontFamily(selectedFont.value),
+                                    color = Color.White
+                                )
+                                if (!note.imageList.isNullOrEmpty()) {
+                                    Box {
+                                        ImageSliderBitmap(imageList = note.imageList)
+                                    }
+                                }
+                                // ✅ Edit icon will always show, even if there is no image
+                                IconButton(
+                                    onClick = { onEditNote() },
+                                    modifier = Modifier.align(Alignment.End)
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.Edit,
+                                        contentDescription = "Edit Note",
+                                        tint = Color.Black
+                                    )
                                 }
                             }
                         }
                     }
                 }
+
+
+
+
+
+
             }
         )
     }
 
-    // ✅ Password Dialog for Locking / Unlocking Notes
+
+
+    // ✅ Lock/Unlock Password Dialog
     if (showPasswordDialog) {
         AlertDialog(
             onDismissRequest = { showPasswordDialog = false },
-            title = { Text(if (isLocked) "Enter Password" else "Set Password") },
+            title = { Text(if (isLocked) "Enter Password to Unlock" else "Set Password to Lock") },
             text = {
                 Column {
                     TextField(
@@ -417,16 +236,14 @@ fun NoteRow(
             confirmButton = {
                 Button(onClick = {
                     if (isLocked) {
-                        // ✅ Unlocking Logic
                         if (inputPassword == password) {
                             isLocked = false
-                            onLockNote(false, null) // ✅ Unlock and remove password
+                            onLockNote(false, null)
                             showPasswordDialog = false
                         } else {
                             Toast.makeText(context, "Wrong Password", Toast.LENGTH_SHORT).show()
                         }
                     } else {
-                        // ✅ Locking Logic
                         password = inputPassword
                         isLocked = true
                         onLockNote(true, password)
@@ -453,25 +270,30 @@ fun NoteRow(
     }
 }
 
+
+
+
+
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun DismissBackground(dismissState: DismissState, isLocked: Boolean) {
     val color = when {
         isLocked -> Color.DarkGray // ✅ If locked, disable swipe
-        dismissState.dismissDirection == DismissDirection.StartToEnd -> Color(0xFF039BE5) // ✅ Edit (Left Swipe)
-        dismissState.dismissDirection == DismissDirection.EndToStart -> Color.Red // ✅ Delete (Right Swipe)
+        dismissState.dismissDirection == DismissDirection.EndToStart -> Color.Red // ✅ Left Swipe → Delete
+        dismissState.dismissDirection == DismissDirection.StartToEnd -> Color(0xFF039BE5) // ✅ Right Swipe → Lock
         else -> Color.Transparent
     }
 
     val alignment = when (dismissState.dismissDirection) {
-        DismissDirection.StartToEnd -> Alignment.CenterStart
         DismissDirection.EndToStart -> Alignment.CenterEnd
+        DismissDirection.StartToEnd -> Alignment.CenterStart
         else -> Alignment.Center
     }
 
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .clip(RoundedCornerShape(8.dp)) // ✅ Rounded Corners Added
             .background(color)
             .padding(12.dp),
         contentAlignment = alignment
@@ -480,18 +302,12 @@ fun DismissBackground(dismissState: DismissState, isLocked: Boolean) {
             isLocked -> { // ✅ Locked Notes Can't Be Edited or Deleted
                 Icon(Icons.Default.Lock, contentDescription = "Locked", tint = Color.White)
             }
-            dismissState.dismissDirection == DismissDirection.StartToEnd -> { // ✅ Edit Option
-                Icon(
-                    Icons.Default.Edit,
-                    contentDescription = "Edit Note",
-                    tint = Color.White
-                )
-            }
-            dismissState.dismissDirection == DismissDirection.EndToStart -> { // ✅ Delete Icon
+            dismissState.dismissDirection == DismissDirection.EndToStart -> { // ✅ Delete Option
                 Icon(Icons.Default.Delete, contentDescription = "Delete", tint = Color.White)
+            }
+            dismissState.dismissDirection == DismissDirection.StartToEnd -> { // ✅ Lock Option
+                Icon(Icons.Default.Lock, contentDescription = "Lock Note", tint = Color.White)
             }
         }
     }
 }
-
-
