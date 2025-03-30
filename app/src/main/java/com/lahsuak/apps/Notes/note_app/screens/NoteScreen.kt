@@ -35,6 +35,7 @@ import androidx.compose.material.icons.rounded.UploadFile
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -56,6 +57,7 @@ import com.lahsuak.apps.Notes.note_app.components.ImageSlider
 import com.example.note_app.model.Note
 import com.example.note_app.viewModel.NoteViewModel
 import com.jaixlabs.checksy.ui.navigation.NavigationItem
+import com.jaixlabs.checksy.ui.screens.TaskStatus
 import com.jaixlabs.checksy.util.preference.SettingPreferences
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -143,6 +145,14 @@ fun NoteScreen(
     var showFontPicker by remember { mutableStateOf(false) }
     var showFontSizePicker by remember { mutableStateOf(false) }
 
+
+    var isTaskDone by rememberSaveable {
+        mutableStateOf(TaskStatus.isTaskDone) // ✅ Global state sync
+    }
+
+    var isNotes by rememberSaveable {
+        mutableStateOf(TaskStatus.isNotes) // ✅ Global state sync
+    }
 
 
 
@@ -362,8 +372,12 @@ fun NoteScreen(
                                                         Log.d("NoteScreen", "✅ Note Saved Successfully")
 
                                                         withContext(Dispatchers.Main) {
+                                                            isNotes = true  // ✅ Ensure "Notes" status is selected when navigating back
+                                                            isTaskDone = false
+
                                                             navController?.navigate(NavigationItem.Task.route)
                                                         }
+
                                                     } catch (e: Exception) {
                                                         Log.e("NoteScreen", "❌ Error processing image: ${e.message}")
                                                     }

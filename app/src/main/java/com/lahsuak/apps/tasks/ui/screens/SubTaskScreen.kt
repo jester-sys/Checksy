@@ -230,11 +230,11 @@ fun SubTaskScreen(
         var searchQuery by rememberSaveable {
             mutableStateOf("")
         }
-        val note = stringResource(R.string.notes)
+
         val active = stringResource(R.string.active)
         val done = stringResource(R.string.done)
         val status = remember {
-            mutableStateListOf(note,active, done)
+            mutableStateListOf(active, done)
         }
         var isSubTaskDone by rememberSaveable {
             mutableStateOf(false)

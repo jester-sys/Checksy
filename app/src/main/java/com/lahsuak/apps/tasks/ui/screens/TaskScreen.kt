@@ -175,16 +175,31 @@ fun TaskScreen(
     var searchQuery by rememberSaveable {
         mutableStateOf("")
     }
+//    val notes = stringResource(R.string.notes)
+//    val active = stringResource(R.string.active)
+//    val done = stringResource(R.string.done)
+//    val status = remember {
+//        mutableStateListOf(notes, active, done)
+//    }
+//    var isTaskDone by rememberSaveable {
+//        mutableStateOf(false)
+//    }
+//    var isNotes by rememberSaveable { mutableStateOf(false) }
     val notes = stringResource(R.string.notes)
     val active = stringResource(R.string.active)
     val done = stringResource(R.string.done)
+
     val status = remember {
         mutableStateListOf(notes, active, done)
     }
+
     var isTaskDone by rememberSaveable {
-        mutableStateOf(false)
+        mutableStateOf(TaskStatus.isTaskDone) // ✅ Global state sync
     }
-    var isNotes by rememberSaveable { mutableStateOf(false) }
+
+    var isNotes by rememberSaveable {
+        mutableStateOf(TaskStatus.isNotes) // ✅ Global state sync
+    }
 
 
     val speakLauncher = rememberLauncherForActivityResult(
@@ -321,7 +336,12 @@ fun TaskScreen(
         }
     }
 
-    val sheetState = androidx.compose.material.rememberModalBottomSheetState(
+    // ✅ Ensure state updates globally
+    LaunchedEffect(isTaskDone, isNotes) {
+        TaskStatus.isTaskDone = isTaskDone
+        TaskStatus.isNotes = isNotes
+    }
+    val sheetState   = androidx.compose.material.rememberModalBottomSheetState(
         skipHalfExpanded = true,
         initialValue = ModalBottomSheetValue.Hidden
     )
@@ -1053,4 +1073,8 @@ fun HeaderContent(
             }
         }
     }
+}
+object TaskStatus {
+    var isTaskDone by mutableStateOf(false)
+    var isNotes by mutableStateOf(false)
 }
