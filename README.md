@@ -1,6 +1,11 @@
 # Checksy
 
-[![Download on Google Play](https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png)](https://play.google.com/store/apps/details?id=com.jaixlabs.checksy.dev)
+<p align="center">
+  <a href="https://play.google.com/store/apps/details?id=com.jaixlabs.checksy.dev">
+    <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Download on Google Play" width="200"/>
+  </a>
+</p>
+
 
 Checksy is an open-source app for managing your notes and tasks efficiently. It provides rich customization options and a seamless experience to keep you organized and productive.
 
@@ -28,12 +33,14 @@ Checksy is an open-source app for managing your notes and tasks efficiently. It 
 Here are some screenshots showcasing Checksy’s key features:
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/1f626372-2d17-4b95-aa5f-e9c531d15aab" alt="Checksy Screenshot 1" width="250"/>
-  <img src="https://github.com/user-attachments/assets/54d8d21b-3fcf-4533-867a-87922367c783" alt="Checksy Screenshot 2" width="250"/>
-  <img src="https://github.com/user-attachments/assets/8a38e08d-f14d-4983-854a-9088c67645e2" alt="Checksy Screenshot 3" width="250"/>
-   <img src="https://github.com/user-attachments/assets/63585214-c04d-4cba-99be-8fdfd246eae2" alt="Checksy Screenshot 3" width="250"/>
+  <img src="https://github.com/user-attachments/assets/1f626372-2d17-4b95-aa5f-e9c531d15aab" alt="Checksy Screenshot 1" width="200"/>
+  <img src="https://github.com/user-attachments/assets/54d8d21b-3fcf-4533-867a-87922367c783" alt="Checksy Screenshot 2" width="200"/>
+  <img src="https://github.com/user-attachments/assets/8a38e08d-f14d-4983-854a-9088c67645e2" alt="Checksy Screenshot 3" width="200"/>
+  <img src="https://github.com/user-attachments/assets/63585214-c04d-4cba-99be-8fdfd246eae2" alt="Checksy Screenshot 3" width="200"/>
+  <img src="https://github.com/user-attachments/assets/30184b43-fd76-41c1-a562-da7968479fe2" alt="Checksy Screenshot 3" width="200"/>
 
 </p>
+
 
 *Add additional screenshots in the `assets/screenshots` folder and update this section as needed.*
 
