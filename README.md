@@ -41,8 +41,15 @@ Here are some screenshots showcasing Checksy’s key features:
 
 </p>
 
+## License
 
-*Add additional screenshots in the `assets/screenshots` folder and update this section as needed.*
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+---
+
+## Contact
+
+For any queries, issues, or suggestions, please open an issue or contact us.
 
 ---
 
