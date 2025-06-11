@@ -66,3 +66,5 @@ If you want to run Checksy locally or contribute to its development:
 1. Clone the repository:
    ```bash
    git clone https://github.com/your-username/checksy.git
+
+  Enjoy using Checksy and help us make it better!
