@@ -23,6 +23,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.imeNestedScroll
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -94,7 +97,6 @@ class MainActivity : AppCompatActivity() {
     private val updateLauncher = registerForActivityResult(
         ActivityResultContracts.StartIntentSenderForResult()
     ) { result ->
-        // handle callback
         if (result.data == null) return@registerForActivityResult
         if (result.resultCode == UPDATE_REQUEST_CODE) {
             toast { getString(R.string.downloading_start) }
@@ -179,24 +181,34 @@ class MainActivity : AppCompatActivity() {
                     )
                 )
                 Surface(Modifier.background(MaterialTheme.colorScheme.background)) {
-                    if (isScreenLoaded) {
-                        TaskNavHost(
-                            taskViewModel,
-                            subTaskViewModel,
-                            notificationViewModel,
-                            settingViewModel,
-                            navController,
-                            settingPreferences = settingsPreferences,
-                            windowSize = rememberWindowSize(),
-                            noteViewModel =noteViewModel
-                        )
-                    } else {
-                        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                            Image(
-                                painter = painterResource(id = R.drawable.logo_icon),
-                                contentDescription = null,
-                                modifier = Modifier.size(120.dp)
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .imePadding()
+                            .navigationBarsPadding()
+                    ) {
+                        if (isScreenLoaded) {
+                            TaskNavHost(
+                                taskViewModel,
+                                subTaskViewModel,
+                                notificationViewModel,
+                                settingViewModel,
+                                navController,
+                                settingPreferences = settingsPreferences,
+                                windowSize = rememberWindowSize(),
+                                noteViewModel = noteViewModel
                             )
+                        } else {
+                            Box(
+                                Modifier.fillMaxSize(),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.logo_icon),
+                                    contentDescription = null,
+                                    modifier = Modifier.size(120.dp)
+                                )
+                            }
                         }
                     }
                 }
@@ -244,7 +256,6 @@ class MainActivity : AppCompatActivity() {
                     val theme = preference.theme.toInt()
                     val currentNightMode =
                         resources.configuration.uiMode and UI_MODE_NIGHT_MASK
-                    //32 = dark mode and 16 = light mode
                     if (currentNightMode / 16 != if (theme == -1) {
                             0
                         } else theme
@@ -255,7 +266,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
 
     @Composable
     internal fun SetupTransparentSystemUi(
@@ -285,9 +295,7 @@ class MainActivity : AppCompatActivity() {
             rememberLauncherForActivityResult(
                 ActivityResultContracts.RequestPermission()
             ) { isGranted: Boolean ->
-                if (isGranted) {
-                    /* no-op */
-                } else {
+                if (!isGranted) {
                     toast {
                         getString(R.string.user_cancelled_the_operation)
                     }
@@ -299,18 +307,13 @@ class MainActivity : AppCompatActivity() {
                 LocalContext.current,
                 android.Manifest.permission.POST_NOTIFICATIONS
             ),
-            -> {
-                // Some works that require permission
-            }
-
+                -> { }
             else -> {
-                // Asking for permission
                 SideEffect {
                     launcher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
                 }
             }
         }
-
     }
 
     private fun checkUpdate() {

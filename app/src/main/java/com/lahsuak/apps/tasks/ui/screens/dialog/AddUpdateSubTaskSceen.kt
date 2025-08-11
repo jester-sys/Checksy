@@ -7,12 +7,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.ExperimentalMaterialApi
-//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
@@ -108,6 +109,8 @@ fun AddUpdateSubTaskScreen(
     Column(
         Modifier
             .fillMaxWidth()
+            .navigationBarsPadding()
+            .imePadding()
             .padding(vertical = 8.dp)
     ) {
         RoundedOutlinedTextField(
@@ -128,26 +131,26 @@ fun AddUpdateSubTaskScreen(
                 .focusRequester(focusRequester)
                 .padding(horizontal = 8.dp),
             trailingIcon = {
-                Icon(painterResource( R.drawable.ic_paste), stringResource(
-                     R.string.paste),
-                Modifier.clickable {
-                    val pastedText = AppUtil.pasteText(context)
-                    title = pastedText
-                })
+                Icon(painterResource(R.drawable.ic_paste), stringResource(
+                    R.string.paste),
+                    Modifier.clickable {
+                        val pastedText = AppUtil.pasteText(context)
+                        title = pastedText
+                    })
             }
         )
         Row(verticalAlignment = Alignment.CenterVertically) {
             CheckBoxWithText(
-                text = stringResource( R.string.important_task),
+                text = stringResource(R.string.important_task),
                 value = isImp,
                 onValueChange = { isImp = it },
                 fontSize = 12.sp,
                 modifier = Modifier.padding(start = 4.dp)
             )
             TextButton(onClick = { AppUtil.setClipboard(context, title) }) {
-                Icon(painterResource( R.drawable.ic_copy), stringResource(R.string.copy_text))
+                Icon(painterResource(R.drawable.ic_copy), stringResource(R.string.copy_text))
                 Spacer(modifier = Modifier.width(8.dp))
-                Text(stringResource( R.string.copy_text), fontSize = 12.sp)
+                Text(stringResource(R.string.copy_text), fontSize = 12.sp)
             }
         }
         Row(

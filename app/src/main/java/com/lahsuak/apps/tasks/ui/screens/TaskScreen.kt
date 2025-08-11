@@ -41,9 +41,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ExperimentalMaterialApi
-//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.ModalBottomSheetLayout
-//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -128,6 +126,7 @@ import com.jaixlabs.checksy.util.WindowSize
 import com.jaixlabs.checksy.util.WindowType
 import com.jaixlabs.checksy.util.preference.FilterPreferences
 import com.jaixlabs.checksy.util.preference.SettingPreferences
+import com.jaixlabs.checksy.util.toast
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 import androidx.compose.foundation.lazy.LazyColumn as LazyColumn1
@@ -158,7 +157,6 @@ fun TaskScreen(
     )
     val showVoiceTask = settingsPreferences.showVoiceIcon
 
-
     var taskId: String? by rememberSaveable {
         mutableStateOf(null)
     }
@@ -167,7 +165,6 @@ fun TaskScreen(
     }
     val noteList = noteViewModel?.noteList?.collectAsState()?.value ?: emptyList()
 
-
     var isBottomSheetOpened by rememberSaveable {
         mutableStateOf(false)
     }
@@ -175,16 +172,6 @@ fun TaskScreen(
     var searchQuery by rememberSaveable {
         mutableStateOf("")
     }
-//    val notes = stringResource(R.string.notes)
-//    val active = stringResource(R.string.active)
-//    val done = stringResource(R.string.done)
-//    val status = remember {
-//        mutableStateListOf(notes, active, done)
-//    }
-//    var isTaskDone by rememberSaveable {
-//        mutableStateOf(false)
-//    }
-//    var isNotes by rememberSaveable { mutableStateOf(false) }
     val notes = stringResource(R.string.notes)
     val active = stringResource(R.string.active)
     val done = stringResource(R.string.done)
@@ -194,13 +181,14 @@ fun TaskScreen(
     }
 
     var isTaskDone by rememberSaveable {
-        mutableStateOf(TaskStatus.isTaskDone) // ✅ Global state sync
+        mutableStateOf(TaskStatus.isTaskDone)
     }
 
     var isNotes by rememberSaveable {
-        mutableStateOf(TaskStatus.isNotes) // ✅ Global state sync
+        mutableStateOf(TaskStatus.isNotes)
     }
 
+    val context = LocalContext.current
 
     val speakLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -208,19 +196,23 @@ fun TaskScreen(
         if (result.resultCode == Activity.RESULT_OK) {
             val data = result.data
             val result1 = data!!.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-            val task = Task(
-                id = 0,
-                title = result1!![0],
-                startDate = System.currentTimeMillis()
-            )
-            taskViewModel.insert(task)
+            val spoken = result1?.firstOrNull()?.trim().orEmpty()
+            if (spoken.isNotEmpty()) {
+                val task = Task(
+                    id = 0,
+                    title = spoken,
+                    startDate = System.currentTimeMillis()
+                )
+                taskViewModel.insert(task)
+            } else {
+                context.toast { context.getString(R.string.empty_task) }
+            }
         }
     }
 
     var isListViewEnable by rememberSaveable {
         mutableStateOf(preference.viewType)
     }
-    val context = LocalContext.current
 
     val snackBarHostState = remember {
         SnackbarHostState()
@@ -336,7 +328,6 @@ fun TaskScreen(
         }
     }
 
-    // ✅ Ensure state updates globally
     LaunchedEffect(isTaskDone, isNotes) {
         TaskStatus.isTaskDone = isTaskDone
         TaskStatus.isNotes = isNotes
@@ -407,9 +398,6 @@ fun TaskScreen(
         val isFabExtended by remember {
             derivedStateOf { lazyGridListState.firstVisibleItemIndex != 0 }
         }
-
-
-
 
         Scaffold(
             topBar = {
@@ -517,10 +505,10 @@ fun TaskScreen(
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp),
                         horizontalArrangement =
-                        if (isTaskDone || isNotes)
-                            Arrangement.Center
-                        else
-                            Arrangement.SpaceBetween,
+                            if (isTaskDone || isNotes)
+                                Arrangement.Center
+                            else
+                                Arrangement.SpaceBetween,
                     ) {
                         AnimatedVisibility(visible = showVoiceTask && !isTaskDone && !isNotes) {
                             FloatingActionButton(
@@ -535,13 +523,12 @@ fun TaskScreen(
                             }
                         }
 
-                        // ✅ Notes Mode Me "Add Note" Button Show Karna
                         AnimatedVisibility(visible = isNotes) {
                             FloatingActionButton(
                                 containerColor = MaterialTheme.colorScheme.primary,
                                 modifier = Modifier
-                                    .padding(16.dp) // ✅ Proper padding
-                                    .size(60.dp), // ✅ Right Bottom Position
+                                    .padding(16.dp)
+                                    .size(60.dp),
                                 shape = CircleShape,
                                 onClick = {
                                     navController?.currentBackStackEntry?.savedStateHandle?.set(
@@ -561,7 +548,6 @@ fun TaskScreen(
 
                         }
 
-                        // ✅ Completed Tasks Delete Button
                         AnimatedVisibility(visible = isTaskDone) {
                             FloatingActionButton(
                                 containerColor = MaterialTheme.colorScheme.error,
@@ -575,7 +561,6 @@ fun TaskScreen(
                                     stringResource(R.string.delete_task)
                                 )
                             }
-                            // ✅ Jab `isNoteScreenVisible` true ho, tab Notes Screen Show Karo
                             if (isNoteScreenVisible) {
                                 if (noteViewModel != null) {
                                     NoteScreenNavigation(context, noteViewModel)
@@ -583,7 +568,6 @@ fun TaskScreen(
                             }
                         }
 
-                        // ✅ Notes aur Completed ke alawa Add Task Button Show Karna
                         AnimatedVisibility(visible = !isTaskDone && !isNotes) {
                             if (isFabExtended) {
                                 ExtendedFloatingActionButton(
@@ -693,12 +677,11 @@ fun TaskScreen(
                     }
                 ),
             ) {
-                // ✅ Status Selection aur HeaderContent
                 item(span = StaggeredGridItemSpan.FullLine) {
                     AnimatedVisibility(!actionMode) {
                         HeaderContent(
-                            completedTask = if (isNotes) 0 else tasks.count { it.isDone }, // ✅ Completed Tasks Count (0 for Notes)
-                            totalTask = if (isNotes) noteList.size else tasks.size, // ✅ Total Notes or Tasks Count,
+                            completedTask = if (isNotes) 0 else tasks.count { it.isDone },
+                            totalTask = if (isNotes) noteList.size else tasks.size,
                             searchQuery = searchQuery,
                             onQueryChange = {
                                 searchQuery = it
@@ -719,19 +702,19 @@ fun TaskScreen(
                             },
                             onStatusChange = { index: Int ->
                                 when (index) {
-                                    0 -> { // ✅ Notes Selected
+                                    0 -> {
                                         isNotes = true
                                         isTaskDone = false
                                         isNoteScreenVisible = true
                                     }
 
-                                    1 -> { // ✅ Active Selected
+                                    1 -> {
                                         isNotes = false
                                         isTaskDone = false
                                         isNoteScreenVisible = false
                                     }
 
-                                    2 -> { // ✅ Done Selected
+                                    2 -> {
                                         isNotes = false
                                         isTaskDone = true
                                         isNoteScreenVisible = false
@@ -764,27 +747,23 @@ fun TaskScreen(
                         )
                     }
                 }
-                // ✅ Apply Search & Sort Based on Selection
                 val filteredList = if (isNotes) {
                     noteList.filter { it.title.contains(searchQuery, ignoreCase = true) }
-                        .sortedByDescending { it.timeStamp } // ✅ Notes Sorted by Date (Latest First)
+                        .sortedByDescending { it.timeStamp }
                 } else {
                     tasks.filter { t ->
                         when {
-                            isTaskDone -> t.isDone // ✅ Done wale tasks show honge
+                            isTaskDone -> t.isDone
                             isNotes -> !t.isDone && (t.category
-                                ?: "") == "Notes" // ✅ Notes wale show honge
-                            else -> !t.isDone // ✅ Active wale tasks show honge
+                                ?: "") == "Notes"
+                            else -> !t.isDone
                         }
-                    }.filter { it.title.contains(searchQuery, ignoreCase = true) } // ✅ Apply Search
-                        .sortedByDescending { it.isImp } // ✅ Important Tasks Pehle Dikhaye
+                    }.filter { it.title.contains(searchQuery, ignoreCase = true) }
+                        .sortedByDescending { it.isImp }
                 }
 
-
-                // ✅ Notes & Tasks Handling
                 if (isNotes) {
                     if (filteredList.isEmpty()) {
-                        // ✅ Empty Notes Message
                         item(span = StaggeredGridItemSpan.FullLine) {
                             Box(
                                 modifier = Modifier
@@ -818,7 +797,6 @@ fun TaskScreen(
                             }
                         }
                     } else {
-                        // ✅ Show Sorted and Filtered Notes
                         items(filteredList) { note ->
                             NoteRow(
                                 note = note as Note,
@@ -828,10 +806,10 @@ fun TaskScreen(
                                         key = "note_obj",
                                         value = note
                                     )
-                                    navController?.navigate("NoteScreen") // ✅ Open Note Screen
+                                    navController?.navigate("NoteScreen")
                                 },
                                 onDeleteNote = {
-                                    noteViewModel?.deleteNote(note.id) // ✅ Delete Note from DB
+                                    noteViewModel?.deleteNote(note.id)
                                 },
                                 onEditNote = {
                                     navController?.currentBackStackEntry?.savedStateHandle?.set(
@@ -845,13 +823,12 @@ fun TaskScreen(
                                         note.id,
                                         isLocked,
                                         password
-                                    ) // ✅ Update Lock Status in DB
+                                    )
                                 }
                             )
                         }
                     }
                 } else {
-                    // ✅ Active & Done Tasks
                     items(
                         filteredList.filterIsInstance<Task>(),
                         key = { task: Task -> task.id + Random.nextInt() }) { task ->
@@ -1001,7 +978,6 @@ fun HeaderContent(
                         .clip(RoundedCornerShape(8.dp))
                         .background(MaterialTheme.colorScheme.surfaceVariant)
                         .onGloballyPositioned { coordinates ->
-                            //This value is used to assign to the DropDown the same width
                             mTextFieldSize = coordinates.size.toSize()
                         }
                         .toggleable(value = isDropDownExpanded) {
